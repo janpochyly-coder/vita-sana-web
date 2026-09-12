@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="sk" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vita Sana by Karin — Jogové štúdio &amp; Salón</title>
+<meta name="description" content="Joga, arteterapia a ajurvédska či marocká gastronómia. Úľava od bolesti chrbta a migrén. Power, Hatha, Dance flow a Chair joga. Rezervácia nutná vopred.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        sage:  { 50:'#f8faf4', 100:'#eef3e3', 200:'#dde6c9', 300:'#c6d4a8', 400:'#adc086', 500:'#93a96a', 600:'#7a9053', 700:'#627443', 800:'#4f5e39', 900:'#414d31' },
+        sand:  { 50:'#fdfcf7', 100:'#f8f4e9', 200:'#f0e8d3', 300:'#e4d6b6', 400:'#d5bd91', 500:'#c5a271', 600:'#b08a57', 700:'#937049', 800:'#795c3e', 900:'#644d35' },
+        terra: { 50:'#fdf6f3', 100:'#faeae3', 200:'#f4d5c7', 300:'#e9b9a3', 400:'#db947a', 500:'#c9765a', 600:'#b25f45', 700:'#954c37', 800:'#7b402f', 900:'#67382a' }
+      },
+      fontFamily: {
+        serif: ['"Cormorant Garamond"','Georgia','serif'],
+        sans: ['Jost','ui-sans-serif','system-ui','sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+  body{background:#fdfcf7}
+  .grain{background-image:radial-gradient(rgba(147,169,106,.10) 1px,transparent 1px);background-size:18px 18px}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .lesson-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1),opacity .35s ease;opacity:0}
+  .lesson.open .lesson-body{max-height:520px;opacity:1}
+  .lesson.open .chev{transform:rotate(180deg)}
+  .chev{transition:transform .4s ease}
+  ::selection{background:#dde6c9;color:#414d31}
+  /* Oblúk — podpisový motív z grafiky Vita Sana */
+  .arch{border-radius:9999px 9999px 12px 12px}
+  .arch-frame{position:relative}
+  .arch-frame::after{content:'';position:absolute;inset:-10px;border:1px solid rgba(176,138,87,.45);border-radius:9999px 9999px 18px 18px;pointer-events:none}
+  .sparkle{position:absolute;pointer-events:none;opacity:.55}
+  .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .35s ease}
+  .link-underline:hover{background-size:100% 1px}
+  input:focus,select:focus,textarea:focus{outline:none}
+  html{scroll-padding-top:88px}
+</style>
+</head>
+<body class="font-sans text-sage-800 antialiased">
+
+<!-- ============ HEADER ============ -->
+<header id="header" class="fixed top-0 inset-x-0 z-50 transition-all duration-500">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div id="navbar" class="flex items-center justify-between py-5 transition-all duration-500">
+      <a href="#top" class="flex items-center gap-3 group">
+        <span class="grid place-items-center w-10 h-10 rounded-full bg-sage-600 text-sand-50 group-hover:bg-terra-500 transition-colors duration-500">
+          <i class="fa-solid fa-spa text-sm"></i>
+        </span>
+        <span class="leading-none">
+          <span class="block font-serif text-xl tracking-wide text-sage-800">Vita Sana</span>
+          <span class="block text-[10px] uppercase tracking-[.28em] text-sage-500">by Karin</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 text-[13px] uppercase tracking-[.16em] text-sage-600">
+        <a href="#piliere" class="link-underline hover:text-terra-600 transition-colors">Piliere</a>
+        <a href="#lekcie" class="link-underline hover:text-terra-600 transition-colors">Lekcie</a>
+        <a href="#info" class="link-underline hover:text-terra-600 transition-colors">Praktické info</a>
+        <a href="#kontakt" class="link-underline hover:text-terra-600 transition-colors">Kde nás nájdete</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="openModal()" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-6 py-3 text-[12px] uppercase tracking-[.18em] shadow-lg shadow-terra-600/20 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+          <i class="fa-regular fa-calendar-check"></i> Rezervovať termín
+        </button>
+        <button onclick="toggleMenu()" aria-label="Menu" class="lg:hidden grid place-items-center w-11 h-11 rounded-full border border-sage-200 text-sage-700 hover:bg-sage-50 transition">
+          <i id="burgerIcon" class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden bg-sand-50/98 backdrop-blur border-t border-sage-100">
+    <div class="px-6 py-6 flex flex-col gap-1 text-sage-700">
+      <a onclick="toggleMenu()" href="#piliere" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Piliere</a>
+      <a onclick="toggleMenu()" href="#lekcie" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Lekcie</a>
+      <a onclick="toggleMenu()" href="#info" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Praktické info</a>
+      <a onclick="toggleMenu()" href="#kontakt" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Kde nás nájdete</a>
+      <button onclick="toggleMenu();openModal()" class="mt-5 rounded-full bg-terra-600 text-sand-50 px-6 py-4 text-[12px] uppercase tracking-[.18em]">
+        <i class="fa-regular fa-calendar-check mr-2"></i> Rezervovať termín
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative min-h-[100svh] flex items-center overflow-hidden grain">
+  <div class="absolute inset-0 -z-10">
+    <img src="img/hero.jpg" data-fallback="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=2000&q=80" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-sand-50 via-sand-50/92 to-sand-50/40"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-sand-50 via-transparent to-sand-50/60"></div>
+  </div>
+
+  <!-- dekoratívne prvky podľa grafiky Vita Sana: oblúk + trblietky -->
+  <div class="pointer-events-none absolute -right-32 top-24 w-[28rem] h-[28rem] rounded-full border border-sage-300/40"></div>
+  <div class="pointer-events-none absolute -right-10 top-52 w-[18rem] h-[18rem] rounded-full border border-terra-300/40"></div>
+  <svg class="sparkle" style="right:12%;top:16%" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12C6.9 10.8 11.4 6.3 12 0z" fill="#b08a57"/></svg>
+  <svg class="sparkle" style="right:26%;top:38%" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12C6.9 10.8 11.4 6.3 12 0z" fill="#c9765a"/></svg>
+  <svg class="sparkle" style="right:8%;bottom:22%" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 0c.6 6.3 5.1 10.8 12 12-6.9 1.2-11.4 5.7-12 12-.6-6.3-5.1-10.8-12-12C6.9 10.8 11.4 6.3 12 0z" fill="#93a96a"/></svg>
+
+  <div class="mx-auto max-w-7xl px-5 sm:px-8 pt-32 pb-20 w-full">
+    <div class="max-w-2xl">
+      <p class="reveal inline-flex items-center gap-3 text-[11px] uppercase tracking-[.3em] text-terra-700 bg-terra-100/70 rounded-full px-4 py-2">
+        <i class="fa-solid fa-leaf"></i> Joga &middot; Arteterapia &middot; Gastronómia
+      </p>
+
+      <h1 class="reveal mt-8 font-serif text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-sage-800">
+        Uvoľnite napätie<br>
+        <span class="italic text-terra-600">v tele</span> aj <span class="italic text-terra-600">v mysli</span>
+      </h1>
+
+      <p class="reveal mt-7 text-lg sm:text-xl text-sage-600 leading-relaxed max-w-xl font-light">
+        Ukážem vám, ako uvoľniť napätie v tele a mysli cez jogu a arteterapiu. Bolí vás chrbát?
+        Trápia vás migrény? Objavte so mnou cestu k zdraviu, sebaláske a radosti
+        z prítomného okamihu.
+      </p>
+
+      <div class="reveal mt-10 flex flex-col sm:flex-row gap-4">
+        <button onclick="openModal()" class="group inline-flex items-center justify-center gap-3 rounded-full bg-sage-700 hover:bg-sage-800 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] shadow-xl shadow-sage-700/20 hover:-translate-y-0.5 transition-all duration-300">
+          Rezervovať termín
+          <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+        </button>
+        <a href="#lekcie" class="inline-flex items-center justify-center gap-3 rounded-full border border-sage-300 hover:border-sage-600 text-sage-700 px-8 py-4 text-[12px] uppercase tracking-[.2em] transition-all duration-300 hover:bg-sage-50">
+          Pozrieť lekcie
+        </a>
+      </div>
+
+      <p class="reveal mt-10 font-serif italic text-xl text-sage-700/90 border-l-2 border-terra-300 pl-5">
+        „Zastavte sa skôr, než vás zastaví život."
+      </p>
+
+      <div class="reveal mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-sage-600">
+        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-user-group text-terra-500"></i> Malé skupiny, osobný prístup</span>
+        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-bag-shopping text-terra-500"></i> Pomôcky sú na mieste</span>
+        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-location-dot text-terra-500"></i> 2 lokality</span>
+      </div>
+    </div>
+  </div>
+
+  <a href="#piliere" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-sage-500 hover:text-terra-600 transition-colors">
+    <i class="fa-solid fa-chevron-down animate-bounce"></i>
+  </a>
+</section>
+
+<!-- ============ PILIERE ============ -->
+<section id="piliere" class="py-24 sm:py-32 bg-sand-50">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="max-w-2xl">
+      <p class="reveal text-[11px] uppercase tracking-[.3em] text-terra-600">Naša filozofia</p>
+      <h2 class="reveal mt-5 font-serif text-4xl sm:text-5xl text-sage-800 leading-tight">Tri piliere, jedna cesta k úľave</h2>
+      <p class="reveal mt-5 text-sage-600 font-light text-lg">
+        Telo, myseľ a to, čím sa sýtime. Vo Vita Sana veríme, že skutočná zmena prichádza,
+        keď sa staráme o všetky tri naraz.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 md:grid-cols-3">
+      <!-- 1 -->
+      <article class="reveal group relative overflow-hidden rounded-3xl bg-white border border-sage-100 p-9 hover:border-sage-300 hover:shadow-2xl hover:shadow-sage-900/5 hover:-translate-y-1 transition-all duration-500">
+        <span class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-sage-100 group-hover:scale-125 transition-transform duration-700"></span>
+        <span class="relative grid place-items-center w-14 h-14 rounded-2xl bg-sage-600 text-sand-50 text-xl"><i class="fa-solid fa-person-praying"></i></span>
+        <h3 class="relative mt-7 font-serif text-2xl text-sage-800">Joga</h3>
+        <p class="relative mt-3 text-sage-600 font-light leading-relaxed">
+          Štyri druhy lekcií &mdash; od dynamickej Power jogy až po jemnú jogu na stoličkách.
+          Pracujeme s chrbticou, dychom a uvoľnením hlbokých svalových reťazcov,
+          ktoré stoja za bolesťou chrbta a migrénami.
+        </p>
+        <a href="#lekcie" class="relative mt-6 inline-flex items-center gap-2 text-sm uppercase tracking-[.16em] text-terra-600 link-underline">Lekcie <i class="fa-solid fa-arrow-right text-xs"></i></a>
+      </article>
+
+      <!-- 2 -->
+      <article class="reveal group relative overflow-hidden rounded-3xl bg-white border border-sage-100 p-9 hover:border-terra-200 hover:shadow-2xl hover:shadow-terra-900/5 hover:-translate-y-1 transition-all duration-500">
+        <span class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-terra-100 group-hover:scale-125 transition-transform duration-700"></span>
+        <span class="relative grid place-items-center w-14 h-14 rounded-2xl bg-terra-500 text-sand-50 text-xl"><i class="fa-solid fa-palette"></i></span>
+        <h3 class="relative mt-7 font-serif text-2xl text-sage-800">Arteterapia</h3>
+        <p class="relative mt-3 text-sage-600 font-light leading-relaxed">
+          Nemusíte vedieť kresliť. Farba, plátno a štetec sú tu preto, aby z tela vyšlo to,
+          na čo slová nestačia. Pravidelné kreatívne workshopy &mdash; morské motívy, západy slnka,
+          aj tematické stretnutia vo dvojici. Bez hodnotenia, bez výkonu.
+        </p>
+        <button onclick="openModal('Arteterapia')" class="relative mt-6 inline-flex items-center gap-2 text-sm uppercase tracking-[.16em] text-terra-600 link-underline">Mám záujem <i class="fa-solid fa-arrow-right text-xs"></i></button>
+      </article>
+
+      <!-- 3 -->
+      <article class="reveal group relative overflow-hidden rounded-3xl bg-white border border-sage-100 p-9 hover:border-sand-300 hover:shadow-2xl hover:shadow-sand-900/5 hover:-translate-y-1 transition-all duration-500">
+        <span class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-sand-100 group-hover:scale-125 transition-transform duration-700"></span>
+        <span class="relative grid place-items-center w-14 h-14 rounded-2xl bg-sand-600 text-sand-50 text-xl"><i class="fa-solid fa-mortar-pestle"></i></span>
+        <h3 class="relative mt-7 font-serif text-2xl text-sage-800">Ajurvédska &amp; marocká gastronómia</h3>
+        <p class="relative mt-3 text-sage-600 font-light leading-relaxed">
+          Kurzy zdravého varenia priamo s majstrom ajurvédskej kuchyne
+          <strong class="font-medium text-sage-700">Zdenkom Krajčovičom</strong> a s receptami
+          marockej kuchyne. Kitchari, chapati, mätový dip &mdash; korenie, ktoré hreje,
+          jedlo, ktoré netlačí a podporí to, čo ste si odcvičili.
+        </p>
+        <button onclick="openModal('Gastronómia')" class="relative mt-6 inline-flex items-center gap-2 text-sm uppercase tracking-[.16em] text-terra-600 link-underline">Mám záujem <i class="fa-solid fa-arrow-right text-xs"></i></button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEKCIE ============ -->
+<section id="lekcie" class="py-24 sm:py-32 bg-sage-700 text-sand-100 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-[.12]">
+    <img src="img/lekcie.jpg" data-fallback="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=2000&q=80" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="" class="w-full h-full object-cover">
+  </div>
+  <div class="relative mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="max-w-2xl">
+      <p class="reveal text-[11px] uppercase tracking-[.3em] text-terra-300">Rozvrh lekcií</p>
+      <h2 class="reveal mt-5 font-serif text-4xl sm:text-5xl leading-tight">Štyri druhy jogy.<br>Vyberte si podľa toho, čo dnes potrebujete.</h2>
+      <p class="reveal mt-5 text-sand-200/80 font-light text-lg">Kliknite na lekciu a zobrazí sa jej detailný popis, intenzita a pre koho je určená.</p>
+    </div>
+
+    <div id="lessons" class="mt-14 grid gap-5 lg:grid-cols-2"></div>
+  </div>
+</section>
+
+<!-- ============ PRAKTICKÉ INFO ============ -->
+<section id="info" class="py-24 sm:py-32 bg-sand-50 grain">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="max-w-2xl">
+      <p class="reveal text-[11px] uppercase tracking-[.3em] text-terra-600">Skôr než prídete</p>
+      <h2 class="reveal mt-5 font-serif text-4xl sm:text-5xl text-sage-800 leading-tight">Praktické informácie</h2>
+    </div>
+
+    <div class="mt-14 grid gap-6 lg:grid-cols-2">
+      <!-- Čo si doniesť -->
+      <div class="reveal rounded-3xl bg-white border border-sage-100 p-9 sm:p-11 relative overflow-hidden">
+        <span class="absolute right-6 top-6 text-6xl text-sage-50"><i class="fa-solid fa-shirt"></i></span>
+        <span class="grid place-items-center w-14 h-14 rounded-2xl bg-sage-600 text-sand-50 text-xl"><i class="fa-solid fa-bag-shopping"></i></span>
+        <h3 class="mt-7 font-serif text-3xl text-sage-800">Čo si doniesť?</h3>
+        <p class="mt-4 text-2xl font-serif italic text-terra-600">Vôbec nič. Len seba.</p>
+        <p class="mt-4 text-sage-600 font-light leading-relaxed">
+          Postačí pohodlné športové oblečenie, v ktorom sa cítite slobodne.
+          Všetky podložky, bloky, popruhy, deky aj bolstre nájdete pripravené na mieste.
+        </p>
+        <ul class="mt-7 space-y-3 text-sage-700">
+          <li class="flex items-start gap-3"><i class="fa-solid fa-check mt-1 text-sage-500"></i><span><strong class="font-medium">Športové oblečenie</strong> &mdash; jediné, čo si prineste.</span></li>
+          <li class="flex items-start gap-3"><i class="fa-solid fa-check mt-1 text-sage-500"></i><span><strong class="font-medium">Podložky a pomôcky</strong> &mdash; zabezpečíme my.</span></li>
+          <li class="flex items-start gap-3"><i class="fa-solid fa-check mt-1 text-sage-500"></i><span><strong class="font-medium">Cvičí sa naboso</strong> &mdash; ponožky netreba riešiť.</span></li>
+          <li class="flex items-start gap-3"><i class="fa-solid fa-check mt-1 text-sage-500"></i><span><strong class="font-medium">Príďte 10 minút vopred</strong> &mdash; nech začnete v pokoji.</span></li>
+        </ul>
+      </div>
+
+      <!-- Kapacita -->
+      <div class="reveal rounded-3xl bg-terra-600 text-sand-50 p-9 sm:p-11 relative overflow-hidden">
+        <span class="absolute -right-10 -bottom-10 w-52 h-52 rounded-full bg-terra-500/50"></span>
+        <span class="relative grid place-items-center w-14 h-14 rounded-2xl bg-sand-50/15 backdrop-blur text-xl"><i class="fa-solid fa-users-viewfinder"></i></span>
+        <h3 class="relative mt-7 font-serif text-3xl">Kapacita a rezervácia</h3>
+        <p class="relative mt-4 text-2xl font-serif italic text-terra-100">Obmedzený počet miest.</p>
+        <p class="relative mt-4 text-sand-100/90 font-light leading-relaxed">
+          Cvičíme zámerne v malých skupinách &mdash; aby som mala priestor sledovať každého,
+          opraviť pozíciu a prispôsobiť cvičenie vašim bolestiam a možnostiam.
+        </p>
+        <div class="relative mt-7 rounded-2xl bg-sand-50/10 backdrop-blur border border-sand-50/20 p-6">
+          <p class="flex items-start gap-3 text-sand-50">
+            <i class="fa-solid fa-triangle-exclamation mt-1"></i>
+            <span><strong class="font-medium">Rezervácia je nutná vopred</strong> &mdash; cez formulár nižšie,
+            telefonicky, správou na Instagrame alebo cez rezervačný systém Bookio.
+            Bez rezervácie, žiaľ, nevieme garantovať voľné miesto.</span>
+          </p>
+        </div>
+        <div class="relative mt-6 flex flex-col sm:flex-row gap-3">
+          <button onclick="openModal()" class="inline-flex items-center justify-center gap-2 rounded-full bg-sand-50 text-terra-700 px-7 py-4 text-[12px] uppercase tracking-[.18em] hover:bg-white hover:-translate-y-0.5 transition-all duration-300">
+            <i class="fa-regular fa-calendar-check"></i> Rezervovať termín
+          </button>
+          <a href="tel:+421905123456" class="inline-flex items-center justify-center gap-2 rounded-full border border-sand-50/50 px-7 py-4 text-[12px] uppercase tracking-[.18em] hover:bg-sand-50/10 transition-all duration-300">
+            <i class="fa-solid fa-phone"></i> Zavolať
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KDE NÁS NÁJDETE ============ -->
+<section id="kontakt" class="py-24 sm:py-32 bg-white">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="max-w-2xl">
+      <p class="reveal text-[11px] uppercase tracking-[.3em] text-terra-600">Dve adresy</p>
+      <h2 class="reveal mt-5 font-serif text-4xl sm:text-5xl text-sage-800 leading-tight">Kde nás nájdete</h2>
+      <p class="reveal mt-5 text-sage-600 font-light text-lg">
+        Máme dve samostatné miesta &mdash; jogové štúdio a salón. Pri rezervácii si, prosím,
+        overte, na ktorú adresu prichádzate.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-8 lg:grid-cols-2">
+
+      <!-- ŠTÚDIO -->
+      <article class="reveal group rounded-3xl overflow-hidden border-2 border-sage-200 bg-sage-50 hover:border-sage-500 hover:shadow-2xl hover:shadow-sage-900/10 transition-all duration-500">
+        <div class="relative h-52 overflow-hidden arch">
+          <img src="img/studio.jpg" data-fallback="https://images.unsplash.com/photo-1591291621164-2c6367723315?auto=format&fit=crop&w=1400&q=80" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="Jogové štúdio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-sage-800/80 via-sage-800/20 to-transparent"></div>
+          <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-sage-600 text-sand-50 px-4 py-2 text-[10px] uppercase tracking-[.22em]">
+            <i class="fa-solid fa-person-praying"></i> Jogové štúdio
+          </span>
+          <h3 class="absolute bottom-5 left-6 right-6 font-serif text-3xl text-sand-50">J. C. Hronského 4</h3>
+        </div>
+        <div class="p-8">
+          <p class="text-sage-600 font-light leading-relaxed">
+            Priestor pre všetky jogové lekcie &mdash; Power, Hatha, Dance flow aj Chair jogu.
+            Podložky a pomôcky sú pripravené, vy prídete len v športovom oblečení.
+          </p>
+
+          <div class="mt-7 rounded-2xl bg-white border border-sage-100 p-5">
+            <p class="text-[11px] uppercase tracking-[.22em] text-sage-500">Otváracie hodiny</p>
+            <dl class="mt-4 space-y-2.5 text-sm">
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Pondelok &ndash; Štvrtok</dt><dd class="font-medium text-sage-800">08:00 &ndash; 20:00</dd></div>
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Piatok</dt><dd class="font-medium text-sage-800">08:00 &ndash; 18:00</dd></div>
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Sobota</dt><dd class="font-medium text-sage-800">09:00 &ndash; 13:00</dd></div>
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Nedeľa</dt><dd class="text-sage-400">Zatvorené</dd></div>
+            </dl>
+            <div class="mt-4 pt-4 border-t border-sage-100 flex items-start gap-2 text-xs">
+              <i class="fa-solid fa-star mt-0.5 text-terra-500"></i>
+              <span class="text-sage-700"><strong class="font-medium">Pravidelne každú sobotu o 9:00</strong> &mdash;
+              jogová hodina v priateľskom kruhu.</span>
+            </div>
+            <p class="mt-3 text-xs text-sage-500">
+              <i class="fa-solid fa-circle-info mr-1"></i> Lekcie prebiehajú výhradne podľa rezervácií.
+            </p>
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="tel:+421905123456" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-sage-700 hover:bg-sage-800 text-sand-50 px-6 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
+              <i class="fa-solid fa-phone"></i> +421 905 123 456
+            </a>
+            <button onclick="openModal('Power joga','Jogové štúdio — J. C. Hronského 4')" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-sage-300 hover:bg-white text-sage-700 px-6 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
+              <i class="fa-regular fa-calendar-check"></i> Rezervovať sem
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- SALÓN -->
+      <article class="reveal group rounded-3xl overflow-hidden border-2 border-terra-200 bg-terra-50 hover:border-terra-500 hover:shadow-2xl hover:shadow-terra-900/10 transition-all duration-500">
+        <div class="relative h-52 overflow-hidden arch">
+          <img src="img/salon.jpg" data-fallback="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=1400&q=80" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="Salón" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-terra-800/80 via-terra-800/20 to-transparent"></div>
+          <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-terra-600 text-sand-50 px-4 py-2 text-[10px] uppercase tracking-[.22em]">
+            <i class="fa-solid fa-palette"></i> Salón
+          </span>
+          <h3 class="absolute bottom-5 left-6 right-6 font-serif text-3xl text-sand-50">Somolického 2</h3>
+        </div>
+        <div class="p-8">
+          <p class="text-sage-600 font-light leading-relaxed">
+            Tichšie miesto pre arteterapiu, individuálne konzultácie a stretnutia okolo
+            ajurvédskej a marockej kuchyne &mdash; receptov, korenín a chutí.
+          </p>
+
+          <div class="mt-7 rounded-2xl bg-white border border-terra-100 p-5">
+            <p class="text-[11px] uppercase tracking-[.22em] text-terra-500">Otváracie hodiny</p>
+            <dl class="mt-4 space-y-2.5 text-sm">
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Pondelok &ndash; Piatok</dt><dd class="font-medium text-sage-800">09:00 &ndash; 18:00</dd></div>
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Sobota</dt><dd class="font-medium text-sage-800">09:00 &ndash; 14:00</dd></div>
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Nedeľa</dt><dd class="text-sage-400">Zatvorené</dd></div>
+              <div class="flex justify-between gap-4"><dt class="text-sage-600">Arteterapia</dt><dd class="font-medium text-sage-800">podľa dohody</dd></div>
+            </dl>
+            <p class="mt-4 pt-4 border-t border-terra-100 text-xs text-terra-600">
+              <i class="fa-solid fa-circle-info mr-1"></i> Vstup výhradne na objednanie.
+            </p>
+          </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="tel:+421905123456" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-6 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
+              <i class="fa-solid fa-phone"></i> +421 905 123 456
+            </a>
+            <button onclick="openModal('Arteterapia','Salón — Somolického 2')" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-terra-300 hover:bg-white text-terra-700 px-6 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
+              <i class="fa-regular fa-calendar-check"></i> Rezervovať sem
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- CTA pruh -->
+    <div class="reveal mt-16 rounded-3xl bg-sage-700 text-sand-100 p-10 sm:p-14 relative overflow-hidden">
+      <span class="absolute -left-16 -top-16 w-64 h-64 rounded-full border border-sand-100/10"></span>
+      <span class="absolute -right-24 -bottom-24 w-80 h-80 rounded-full border border-terra-300/20"></span>
+      <div class="relative flex flex-col lg:flex-row lg:items-center gap-8 justify-between">
+        <div class="max-w-xl">
+          <h3 class="font-serif text-3xl sm:text-4xl">Prvý krok je najľahší</h3>
+          <p class="mt-3 text-sand-200/80 font-light">Napíšte, čo vás trápi &mdash; ozvem sa vám a spolu vyberieme lekciu, ktorá vám sadne.</p>
+        </div>
+        <button onclick="openModal()" class="shrink-0 inline-flex items-center justify-center gap-3 rounded-full bg-terra-500 hover:bg-terra-600 text-sand-50 px-9 py-5 text-[12px] uppercase tracking-[.2em] shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+          <i class="fa-regular fa-calendar-check"></i> Rezervovať termín
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-sage-800 text-sand-200/80 pt-16 pb-8">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="grid gap-10 md:grid-cols-4">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3">
+          <span class="grid place-items-center w-10 h-10 rounded-full bg-terra-500 text-sand-50"><i class="fa-solid fa-spa text-sm"></i></span>
+          <span class="leading-none">
+            <span class="block font-serif text-xl text-sand-50">Vita Sana</span>
+            <span class="block text-[10px] uppercase tracking-[.28em] text-sand-200/60">by Karin</span>
+          </span>
+        </div>
+        <p class="mt-5 max-w-md font-light leading-relaxed">
+          Joga, arteterapia a chute ajurvédskej a marockej kuchyne. Miesto, kde sa napätie
+          v tele aj v mysli konečne pustí.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/vitasana_by_karin/" target="_blank" rel="noopener" aria-label="Instagram" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.threads.com/@vitasana_by_karin" target="_blank" rel="noopener" aria-label="Threads" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-threads"></i></a>
+          <a href="https://wa.me/421905123456" target="_blank" rel="noopener" aria-label="WhatsApp" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="mailto:info@vitasana.sk" aria-label="E-mail" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-[11px] uppercase tracking-[.22em] text-sand-50">Navigácia</p>
+        <ul class="mt-5 space-y-3 text-sm font-light">
+          <li><a href="#piliere" class="link-underline hover:text-terra-300 transition-colors">Piliere</a></li>
+          <li><a href="#lekcie" class="link-underline hover:text-terra-300 transition-colors">Lekcie jogy</a></li>
+          <li><a href="#info" class="link-underline hover:text-terra-300 transition-colors">Praktické info</a></li>
+          <li><a href="#kontakt" class="link-underline hover:text-terra-300 transition-colors">Kde nás nájdete</a></li>
+          <li><button onclick="openModal()" class="link-underline hover:text-terra-300 transition-colors">Rezervácia</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-[11px] uppercase tracking-[.22em] text-sand-50">Kontakt</p>
+        <ul class="mt-5 space-y-3 text-sm font-light">
+          <li class="flex gap-3"><i class="fa-solid fa-person-praying mt-1 text-terra-400"></i><span>Štúdio<br>J. C. Hronského 4</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-palette mt-1 text-terra-400"></i><span>Salón<br>Somolického 2</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-phone mt-1 text-terra-400"></i><a href="tel:+421905123456" class="link-underline hover:text-terra-300">+421 905 123 456</a></li>
+          <li class="flex gap-3"><i class="fa-regular fa-envelope mt-1 text-terra-400"></i><a href="mailto:info@vitasana.sk" class="link-underline hover:text-terra-300">info@vitasana.sk</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-sand-200/10 flex flex-col sm:flex-row gap-3 justify-between text-xs text-sand-200/50">
+      <p>&copy; <span id="year"></span> Vita Sana by Karin. Všetky práva vyhradené.</p>
+      <p>Rezervácia nutná vopred &middot; Obmedzený počet miest</p>
+    </div>
+  </div>
+</footer>
+
+<!-- TODO: doplniť priamy odkaz na rezervačný systém Bookio (Karin ho má v bio na Instagrame)
+     a pridať ho ako tlačidlo do sekcie „Kapacita a rezervácia" aj do modalu. -->
+
+<!-- ============ MODAL ============ -->
+<div id="modal" class="fixed inset-0 z-[100] hidden">
+  <div id="backdrop" class="absolute inset-0 bg-sage-800/50 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="closeModal()"></div>
+
+  <div class="relative h-full overflow-y-auto p-4 sm:p-8 flex items-start sm:items-center justify-center">
+    <div id="modalCard" class="relative w-full max-w-lg rounded-3xl bg-sand-50 shadow-2xl my-auto opacity-0 translate-y-6 scale-95 transition-all duration-300">
+      <button onclick="closeModal()" aria-label="Zavrieť" class="absolute right-5 top-5 grid place-items-center w-10 h-10 rounded-full bg-white/80 hover:bg-white text-sage-600 transition z-10">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- FORM -->
+      <div id="formWrap" class="p-7 sm:p-10">
+        <p class="text-[11px] uppercase tracking-[.28em] text-terra-600">Žiadosť o termín</p>
+        <h3 class="mt-3 font-serif text-3xl text-sage-800">Rezervovať termín</h3>
+        <p class="mt-3 text-sm text-sage-600 font-light">
+          Vyplňte formulár a ja sa vám ozvem s potvrdením. Kapacita je obmedzená &mdash;
+          rezervácia je platná až po mojej odpovedi.
+        </p>
+
+        <form id="bookingForm" class="mt-7 space-y-4" novalidate>
+          <div>
+            <label for="f-name" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">Meno a priezvisko *</label>
+            <input id="f-name" name="name" type="text" required placeholder="Karin Nováková"
+              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+            <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="f-phone" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">Telefón *</label>
+              <input id="f-phone" name="phone" type="tel" required placeholder="+421 900 000 000"
+                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+              <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
+            </div>
+            <div>
+              <label for="f-email" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">E-mail</label>
+              <input id="f-email" name="email" type="email" placeholder="vas@email.sk"
+                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+              <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
+            </div>
+          </div>
+
+          <div>
+            <label for="f-service" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">O čo máte záujem? *</label>
+            <select id="f-service" name="service" required
+              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+              <option value="">Vyberte...</option>
+              <optgroup label="Joga — štúdio, J. C. Hronského 4">
+                <option>Power joga</option>
+                <option>Hatha joga</option>
+                <option>Dance flow joga</option>
+                <option>Chair joga (joga na stoličkách)</option>
+              </optgroup>
+              <optgroup label="Salón — Somolického 2">
+                <option>Arteterapia</option>
+                <option>Gastronómia</option>
+              </optgroup>
+              <option>Neviem sa rozhodnúť — poraďte mi</option>
+            </select>
+            <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
+          </div>
+
+          <div>
+            <label for="f-place" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">Lokalita *</label>
+            <select id="f-place" name="place" required
+              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+              <option value="">Vyberte...</option>
+              <option>Jogové štúdio — J. C. Hronského 4</option>
+              <option>Salón — Somolického 2</option>
+            </select>
+            <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="f-date" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">Preferovaný dátum</label>
+              <input id="f-date" name="date" type="date"
+                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+            </div>
+            <div>
+              <label for="f-time" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">Časť dňa</label>
+              <select id="f-time" name="time"
+                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+                <option>Ráno (8:00 – 11:00)</option>
+                <option>Poobede (11:00 – 16:00)</option>
+                <option>Večer (16:00 – 20:00)</option>
+                <option>Je mi to jedno</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="f-msg" class="block text-[11px] uppercase tracking-[.18em] text-sage-500 mb-2">Správa &mdash; čo vás trápi?</label>
+            <textarea id="f-msg" name="message" rows="3" placeholder="Napr. bolesti krčnej chrbtice, migrény, sedavé zamestnanie..."
+              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition resize-none"></textarea>
+          </div>
+
+          <label class="flex items-start gap-3 text-xs text-sage-600 font-light">
+            <input id="f-gdpr" type="checkbox" required class="mt-0.5 w-4 h-4 rounded border-sage-300 text-terra-600 focus:ring-terra-300">
+            <span>Súhlasím so spracovaním uvedených údajov za účelom vybavenia mojej žiadosti o rezerváciu. *</span>
+          </label>
+          <p id="gdprErr" class="err hidden -mt-2 text-xs text-terra-600"></p>
+
+          <button type="submit" id="submitBtn"
+            class="w-full inline-flex items-center justify-center gap-3 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] shadow-lg shadow-terra-600/20 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:translate-y-0">
+            <i class="fa-regular fa-paper-plane"></i> Odoslať žiadosť
+          </button>
+
+          <p class="text-center text-xs text-sage-500 font-light">
+            Alebo rovno zavolajte: <a href="tel:+421905123456" class="text-terra-600 link-underline">+421 905 123 456</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <div id="successWrap" class="hidden p-10 sm:p-12 text-center">
+        <div class="mx-auto grid place-items-center w-20 h-20 rounded-full bg-sage-100 text-sage-600 text-3xl">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="mt-7 font-serif text-3xl text-sage-800">Žiadosť odoslaná</h3>
+        <p class="mt-4 text-sage-600 font-light leading-relaxed">
+          Ďakujem! Ozvem sa vám <strong class="font-medium text-sage-800">do 24 hodín</strong>
+          s potvrdením termínu. Pripomínam &mdash; rezervácia je platná až po mojom potvrdení,
+          keďže počet miest je obmedzený.
+        </p>
+        <div id="recap" class="mt-6 text-left rounded-2xl bg-white border border-sage-100 p-5 text-sm space-y-2"></div>
+        <button onclick="closeModal()" class="mt-7 w-full rounded-full bg-sage-700 hover:bg-sage-800 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] transition-colors">
+          Zavrieť
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] hidden">
+  <div class="flex items-center gap-3 rounded-full bg-sage-700 text-sand-50 px-6 py-3.5 shadow-2xl text-sm">
+    <i class="fa-solid fa-circle-check text-terra-300"></i><span id="toastMsg"></span>
+  </div>
+</div>
+
+<script>
+/* ---------- LEKCIE ---------- */
+const LESSONS = [
+  {
+    id:'power', name:'Power joga', icon:'fa-fire-flame-curved', tag:'Dynamika &amp; sila',
+    accent:'terra', level:'Stredná až vyššia intenzita', duration:'60 min',
+    lead:'Dynamická, energická prax, ktorá zahreje telo a vyčistí hlavu.',
+    desc:'Plynulé sekvencie v rytme dychu, posilňovanie stredu tela, rúk aj nôh. Power joga buduje silu a vytrvalosť &mdash; a pri sedavom zamestnaní vracia chrbtici stabilitu, ktorá jej cez deň chýba. Odchádzate príjemne unavení a zároveň nabití.',
+    forWho:['Chcete sa poriadne zapotiť','Sedavé zamestnanie a slabý stred tela','Máte radi tempo a výzvu']
+  },
+  {
+    id:'hatha', name:'Hatha joga', icon:'fa-mountain-sun', tag:'Tradícia, dych &amp; balans',
+    accent:'sage', level:'Mierna intenzita &middot; vhodné pre začiatočníkov', duration:'75 min',
+    lead:'Klasická joga: pozície držíme dlhšie, dych vedie všetko ostatné.',
+    desc:'Tradičné ásany, prácu s dychom (pránajáma) a záverečné uvoľnenie spájame do pokojnej hodiny. Práve v dlhšie držaných pozíciách sa rozpúšťa napätie okolo krčnej a driekovej chrbtice &mdash; časté spúšťače bolesti hlavy a migrén.',
+    forWho:['Bolesti chrbta a krčnej chrbtice','Migrény a napätie z hlavy','Začínate s jogou']
+  },
+  {
+    id:'dance', name:'Dance flow joga', icon:'fa-music', tag:'Plynulosť, radosť &amp; tanec',
+    accent:'sand', level:'Stredná intenzita', duration:'60 min',
+    lead:'Joga, ktorá sa nebráni hudbe. Pohyb, ktorý vás rozosmeje.',
+    desc:'Jogové prvky prepojené s voľným tanečným pohybom na hudbu. Menej presných tvarov, viac slobody &mdash; telo sa rozvlní, bedrá a ramená sa uvoľnia a hlava sa konečne vypne. Netreba vedieť tancovať, treba len dovoliť telu ísť.',
+    forWho:['Chcete sa hýbať a odreagovať','Stuhnuté bedrá a ramená','Klasická joga vám príde príliš statická']
+  },
+  {
+    id:'chair', name:'Chair joga', subtitle:'Joga na stoličkách', icon:'fa-chair', tag:'Jemná &amp; dostupná',
+    accent:'sage', level:'Nízka intenzita &middot; vhodné pri obmedzeniach', duration:'45 min',
+    lead:'Celá lekcia na stoličke alebo s jej oporou. Bez klesania na zem.',
+    desc:'Jemné naťahovanie, mobilizácia kĺbov a dychové cvičenia &mdash; všetko v sede alebo s oporou stoličky. Ideálna voľba pre seniorov, po úraze či operácii, pri problémoch s kolenami a rovnováhou, ale aj ako krátka pauza pre každého, kto celý deň sedí za počítačom.',
+    forWho:['Seniori a rekonvalescencia','Problémy s kolenami či rovnováhou','Nedostanete sa pohodlne na zem']
+  }
+];
+
+const ACCENTS = {
+  terra:{chip:'bg-terra-500/20 text-terra-200 border-terra-400/30', icon:'bg-terra-500', ring:'hover:border-terra-400/60', dot:'text-terra-300'},
+  sage: {chip:'bg-sage-500/25 text-sage-100 border-sage-400/30',   icon:'bg-sage-500', ring:'hover:border-sage-400/60', dot:'text-sage-200'},
+  sand: {chip:'bg-sand-400/20 text-sand-200 border-sand-300/30',   icon:'bg-sand-500', ring:'hover:border-sand-300/60', dot:'text-sand-200'}
+};
+
+document.getElementById('lessons').innerHTML = LESSONS.map((l,i)=>{
+  const a = ACCENTS[l.accent];
+  return `
+  <article class="lesson reveal group rounded-3xl bg-sand-50/[.06] backdrop-blur border border-sand-100/15 ${a.ring} transition-all duration-500 cursor-pointer" data-id="${l.id}">
+    <div class="p-7 sm:p-8 flex items-start gap-5" onclick="toggleLesson(this)">
+      <span class="shrink-0 grid place-items-center w-14 h-14 rounded-2xl ${a.icon} text-sand-50 text-xl group-hover:scale-105 transition-transform duration-500">
+        <i class="fa-solid ${l.icon}"></i>
+      </span>
+      <div class="flex-1 min-w-0">
+        <span class="inline-block rounded-full border px-3 py-1 text-[10px] uppercase tracking-[.2em] ${a.chip}">${l.tag}</span>
+        <h3 class="mt-3 font-serif text-2xl sm:text-3xl text-sand-50">${l.name}</h3>
+        ${l.subtitle?`<p class="text-sm text-sand-200/60 font-light">${l.subtitle}</p>`:''}
+        <p class="mt-2 text-sand-200/80 font-light">${l.lead}</p>
+      </div>
+      <i class="chev fa-solid fa-chevron-down text-sand-200/60 mt-2"></i>
+    </div>
+
+    <div class="lesson-body">
+      <div class="px-7 sm:px-8 pb-8">
+        <div class="h-px bg-sand-100/15 mb-6"></div>
+        <p class="text-sand-200/80 font-light leading-relaxed">${l.desc}</p>
+
+        <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-sand-200/70">
+          <span class="inline-flex items-center gap-2"><i class="fa-regular fa-clock ${a.dot}"></i> ${l.duration}</span>
+          <span class="inline-flex items-center gap-2"><i class="fa-solid fa-gauge-simple-high ${a.dot}"></i> ${l.level}</span>
+          <span class="inline-flex items-center gap-2"><i class="fa-solid fa-location-dot ${a.dot}"></i> Štúdio, J. C. Hronského 4</span>
+        </div>
+
+        <p class="mt-6 text-[11px] uppercase tracking-[.2em] text-sand-200/50">Pre koho je lekcia</p>
+        <ul class="mt-3 grid sm:grid-cols-3 gap-2">
+          ${l.forWho.map(w=>`<li class="flex items-start gap-2 text-sm text-sand-100/85 font-light"><i class="fa-solid fa-check mt-1 ${a.dot} text-xs"></i>${w}</li>`).join('')}
+        </ul>
+
+        <button onclick="event.stopPropagation();openModal('${l.name}','Jogové štúdio — J. C. Hronského 4')"
+          class="mt-7 inline-flex items-center gap-2 rounded-full bg-sand-50 text-sage-800 px-7 py-3.5 text-[11px] uppercase tracking-[.18em] hover:bg-white hover:-translate-y-0.5 transition-all duration-300">
+          <i class="fa-regular fa-calendar-check"></i> Rezervovať ${l.name}
+        </button>
+      </div>
+    </div>
+  </article>`;
+}).join('');
+
+function toggleLesson(el){
+  const card = el.closest('.lesson');
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.lesson').forEach(c=>c.classList.remove('open'));
+  if(!wasOpen) card.classList.add('open');
+}
+
+/* ---------- HEADER ---------- */
+const header = document.getElementById('header');
+const navbar = document.getElementById('navbar');
+function onScroll(){
+  if(window.scrollY > 40){
+    header.classList.add('bg-sand-50/90','backdrop-blur-md','shadow-sm','shadow-sage-900/5');
+    navbar.classList.replace('py-5','py-3');
+  } else {
+    header.classList.remove('bg-sand-50/90','backdrop-blur-md','shadow-sm','shadow-sage-900/5');
+    navbar.classList.replace('py-3','py-5');
+  }
+}
+window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+/* ---------- MOBILE MENU ---------- */
+function toggleMenu(){
+  const m = document.getElementById('mobileMenu');
+  const i = document.getElementById('burgerIcon');
+  m.classList.toggle('hidden');
+  i.className = m.classList.contains('hidden') ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+}
+
+/* ---------- REVEAL ---------- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'), (i%6)*80);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.12, rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- MODAL ---------- */
+const modal = document.getElementById('modal');
+const backdrop = document.getElementById('backdrop');
+const card = document.getElementById('modalCard');
+
+function openModal(service, place){
+  document.getElementById('formWrap').classList.remove('hidden');
+  document.getElementById('successWrap').classList.add('hidden');
+  if(service){
+    const sel = document.getElementById('f-service');
+    [...sel.options].forEach(o=>{ if(o.text.trim().toLowerCase().startsWith(service.toLowerCase())) sel.value = o.value || o.text; });
+  }
+  if(place) document.getElementById('f-place').value = place;
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(()=>{
+    backdrop.classList.replace('opacity-0','opacity-100');
+    card.classList.remove('opacity-0','translate-y-6','scale-95');
+  });
+}
+function closeModal(){
+  backdrop.classList.replace('opacity-100','opacity-0');
+  card.classList.add('opacity-0','translate-y-6','scale-95');
+  setTimeout(()=>{ modal.classList.add('hidden'); document.body.style.overflow=''; }, 280);
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
+
+/* min. dátum = dnes */
+document.getElementById('f-date').min = new Date().toISOString().split('T')[0];
+
+/* ---------- VALIDÁCIA + ODOSLANIE ---------- */
+function setErr(input, msg){
+  const p = input.closest('div').querySelector('.err');
+  if(msg){ input.classList.add('border-terra-500'); if(p){p.textContent=msg;p.classList.remove('hidden');} }
+  else   { input.classList.remove('border-terra-500'); if(p){p.classList.add('hidden');} }
+}
+
+const form = document.getElementById('bookingForm');
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  let ok = true;
+
+  const name = document.getElementById('f-name');
+  if(name.value.trim().length < 3){ setErr(name,'Zadajte, prosím, celé meno.'); ok=false; } else setErr(name,'');
+
+  const phone = document.getElementById('f-phone');
+  if(!/^[+0-9\s()\-]{9,20}$/.test(phone.value.trim())){ setErr(phone,'Zadajte platné telefónne číslo.'); ok=false; } else setErr(phone,'');
+
+  const email = document.getElementById('f-email');
+  if(email.value.trim() && !/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email.value.trim())){ setErr(email,'Neplatný e-mail.'); ok=false; } else setErr(email,'');
+
+  const service = document.getElementById('f-service');
+  if(!service.value){ setErr(service,'Vyberte, prosím, o čo máte záujem.'); ok=false; } else setErr(service,'');
+
+  const place = document.getElementById('f-place');
+  if(!place.value){ setErr(place,'Vyberte, prosím, lokalitu.'); ok=false; } else setErr(place,'');
+
+  const gdpr = document.getElementById('f-gdpr');
+  const gErr = document.getElementById('gdprErr');
+  if(!gdpr.checked){ gErr.textContent='Bez súhlasu, žiaľ, nevieme žiadosť spracovať.'; gErr.classList.remove('hidden'); ok=false; }
+  else gErr.classList.add('hidden');
+
+  if(!ok){ toast('Skontrolujte, prosím, zvýraznené polia.'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Odosielam...';
+
+  // Simulácia odoslania — tu napojte reálny backend / e-mail službu.
+  setTimeout(()=>{
+    const data = {
+      Meno: name.value.trim(),
+      Telefón: phone.value.trim(),
+      Email: email.value.trim() || '—',
+      Záujem: service.value,
+      Lokalita: place.value,
+      Dátum: document.getElementById('f-date').value || 'nezadaný',
+      Čas: document.getElementById('f-time').value
+    };
+    try{ localStorage.setItem('vitasana_last_booking', JSON.stringify(data)); }catch(_){}
+
+    document.getElementById('recap').innerHTML = Object.entries(data).map(([k,v])=>
+      `<div class="flex justify-between gap-4"><span class="text-sage-500">${k}</span><span class="text-sage-800 font-medium text-right">${v}</span></div>`
+    ).join('');
+
+    document.getElementById('formWrap').classList.add('hidden');
+    document.getElementById('successWrap').classList.remove('hidden');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-regular fa-paper-plane"></i> Odoslať žiadosť';
+    form.reset();
+    toast('Žiadosť bola odoslaná.');
+  }, 900);
+});
+
+/* ---------- TOAST ---------- */
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.remove('hidden');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.add('hidden'), 3200);
+}
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

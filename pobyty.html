@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="sk" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pobyty — Vita Sana by Karin</title>
+<meta name="description" content="Jogové pobyty s Vita Sana by Karin — joga, oddych a dobré jedlo pri mori aj v horách. Aktuálne termíny, história pobytov a nezáväzný dopyt cez e-mail.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        sage:  { 50:'#f8faf4', 100:'#eef3e3', 200:'#dde6c9', 300:'#c6d4a8', 400:'#adc086', 500:'#93a96a', 600:'#7a9053', 700:'#627443', 800:'#4f5e39', 900:'#414d31' },
+        sand:  { 50:'#fdfcf7', 100:'#f8f4e9', 200:'#f0e8d3', 300:'#e4d6b6', 400:'#d5bd91', 500:'#c5a271', 600:'#b08a57', 700:'#937049', 800:'#795c3e', 900:'#644d35' },
+        terra: { 50:'#fdf6f3', 100:'#faeae3', 200:'#f4d5c7', 300:'#e9b9a3', 400:'#db947a', 500:'#c9765a', 600:'#b25f45', 700:'#954c37', 800:'#7b402f', 900:'#67382a' }
+      },
+      fontFamily: {
+        serif: ['"Cormorant Garamond"','Georgia','serif'],
+        sans: ['Jost','ui-sans-serif','system-ui','sans-serif']
+      }
+    }
+  }
+}
+</script>
+<style>
+  body{background:#fdfcf7}
+  .grain{background-image:radial-gradient(rgba(147,169,106,.10) 1px,transparent 1px);background-size:18px 18px}
+  .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .35s ease}
+  .link-underline:hover{background-size:100% 1px}
+  input:focus,select:focus,textarea:focus{outline:none}
+  html{scroll-padding-top:96px}
+</style>
+</head>
+<body class="font-sans text-sage-800 antialiased">
+
+<!-- ============ HEADER ============ -->
+<header class="fixed top-0 inset-x-0 z-50 bg-sand-50/90 backdrop-blur-md shadow-sm shadow-sage-900/5">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="flex items-center justify-between py-4">
+      <a href="index.html" class="flex items-center group" aria-label="Vita Sana by Karin">
+        <img src="img/logo-green.jpg" alt="Vita Sana by Karin" class="h-14 w-14 rounded-xl object-cover shadow-sm group-hover:opacity-90 transition-opacity duration-500" width="112" height="112">
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-9 text-[13px] uppercase tracking-[.16em] text-sage-700">
+        <a href="index.html#piliere" class="link-underline hover:text-terra-600 transition-colors">Piliere</a>
+        <a href="index.html#lekcie" class="link-underline hover:text-terra-600 transition-colors">Lekcie</a>
+        <a href="pobyty.html" class="text-terra-600">Pobyty</a>
+        <a href="index.html#kontakt" class="link-underline hover:text-terra-600 transition-colors">Kde nás nájdete</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#dopyt" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-6 py-3 text-[12px] uppercase tracking-[.18em] shadow-lg shadow-terra-600/20 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+          <i class="fa-regular fa-paper-plane"></i> Mám záujem
+        </a>
+        <button onclick="toggleMenu()" aria-label="Menu" class="lg:hidden grid place-items-center w-11 h-11 rounded-full border border-sage-200 text-sage-700 hover:bg-sage-50 transition">
+          <i id="burgerIcon" class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden bg-sand-50/98 backdrop-blur border-t border-sage-100">
+    <div class="px-6 py-6 flex flex-col gap-1 text-sage-700">
+      <a onclick="toggleMenu()" href="index.html#piliere" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Piliere</a>
+      <a onclick="toggleMenu()" href="index.html#lekcie" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Lekcie</a>
+      <a onclick="toggleMenu()" href="pobyty.html" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm text-terra-600">Pobyty</a>
+      <a onclick="toggleMenu()" href="index.html#kontakt" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Kde nás nájdete</a>
+      <a onclick="toggleMenu()" href="#dopyt" class="mt-5 text-center rounded-full bg-terra-600 text-sand-50 px-6 py-4 text-[12px] uppercase tracking-[.18em]">
+        <i class="fa-regular fa-paper-plane mr-2"></i> Mám záujem
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden grain pt-36 pb-20 sm:pt-44 sm:pb-28">
+  <div class="absolute inset-0 -z-10">
+    <img src="img/hero.jpg" alt="" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-sand-50 via-sand-50/92 to-sand-50/50"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-sand-50 via-transparent to-sand-50/70"></div>
+  </div>
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <a href="index.html" class="inline-flex items-center gap-2 text-[12px] uppercase tracking-[.18em] text-sage-700 hover:text-terra-600 transition-colors">
+      <i class="fa-solid fa-arrow-left"></i> Späť na hlavnú stránku
+    </a>
+    <div class="max-w-2xl mt-8">
+      <p class="inline-flex items-center gap-3 text-[11px] uppercase tracking-[.3em] text-terra-700 bg-terra-100/70 rounded-full px-4 py-2">
+        <i class="fa-solid fa-umbrella-beach"></i> Jogové pobyty
+      </p>
+      <h1 class="mt-8 font-serif text-5xl sm:text-6xl leading-[1.05] text-sage-800">
+        Joga, oddych a dobré jedlo<br><span class="italic text-terra-600">na jednom mieste</span>
+      </h1>
+      <p class="mt-7 text-lg text-sage-700 leading-relaxed font-light">
+        Niekoľkodňové pobyty pri mori aj v prírode — spoločná joga, čas pre seba a chute
+        ajurvédskej a marockej kuchyne. Malá skupina, osobný prístup a atmosféra, na ktorú
+        sa nezabúda.
+      </p>
+      <div class="mt-9 flex flex-col sm:flex-row gap-4">
+        <a href="#aktualne" class="inline-flex items-center justify-center gap-3 rounded-full bg-sage-700 hover:bg-sage-800 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] shadow-xl shadow-sage-700/20 hover:-translate-y-0.5 transition-all duration-300">
+          Aktuálne pobyty <i class="fa-solid fa-arrow-down"></i>
+        </a>
+        <a href="#dopyt" class="inline-flex items-center justify-center gap-3 rounded-full border border-sage-300 hover:border-sage-600 text-sage-700 px-8 py-4 text-[12px] uppercase tracking-[.2em] transition-all duration-300 hover:bg-sage-50">
+          Nezáväzný dopyt
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AKO TO FUNGUJE ============ -->
+<section class="py-16 bg-sand-50">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="rounded-3xl bg-white border border-sage-100 p-8">
+        <span class="grid place-items-center w-14 h-14 rounded-2xl bg-sage-600 text-sand-50 text-xl"><i class="fa-regular fa-calendar-plus"></i></span>
+        <h3 class="mt-6 font-serif text-2xl text-sage-800">1 · Pobyt sa otvorí</h3>
+        <p class="mt-3 text-sage-700 font-light leading-relaxed">Zverejníme termín, miesto a program. Počet miest je obmedzený.</p>
+      </div>
+      <div class="rounded-3xl bg-white border border-sage-100 p-8">
+        <span class="grid place-items-center w-14 h-14 rounded-2xl bg-terra-500 text-sand-50 text-xl"><i class="fa-regular fa-paper-plane"></i></span>
+        <h3 class="mt-6 font-serif text-2xl text-sage-800">2 · Nahlásite sa</h3>
+        <p class="mt-3 text-sage-700 font-light leading-relaxed">Vyplníte krátky dopyt nižšie — ozve sa vám priamo Karin s podrobnosťami.</p>
+      </div>
+      <div class="rounded-3xl bg-white border border-sage-100 p-8">
+        <span class="grid place-items-center w-14 h-14 rounded-2xl bg-sage-600 text-sand-50 text-xl"><i class="fa-solid fa-plane-departure"></i></span>
+        <h3 class="mt-6 font-serif text-2xl text-sage-800">3 · Záloha a letenky</h3>
+        <p class="mt-3 text-sage-700 font-light leading-relaxed">Miesto potvrdíte zálohou. Letenky a ubytovanie doriešime spoločne po potvrdení.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AKTUÁLNE POBYTY ============ -->
+<section id="aktualne" class="py-24 sm:py-28 bg-white">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="max-w-2xl">
+      <p class="text-[11px] uppercase tracking-[.3em] text-terra-600">Práve otvorené</p>
+      <h2 class="mt-5 font-serif text-4xl sm:text-5xl text-sage-800 leading-tight">Aktuálne pobyty</h2>
+      <p class="mt-5 text-sage-700 font-light text-lg">Termíny, ktoré práve prijímajú prihlášky. Ak je zoznam prázdny, nechajte nám dopyt — ozveme sa hneď, ako sa otvorí nový pobyt.</p>
+    </div>
+
+    <!-- EDITUJTE: sem pridávajte aktuálne pobyty (kartu skopírujte a upravte). -->
+    <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      <!-- karta pobytu (vzor) -->
+      <article class="group rounded-3xl overflow-hidden border-2 border-sage-200 bg-sage-50 hover:border-sage-500 hover:shadow-2xl hover:shadow-sage-900/10 transition-all duration-500 flex flex-col">
+        <div class="relative h-56 overflow-hidden">
+          <img src="img/lekcie.jpg" alt="Jogový pobyt pri mori" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-sage-800/80 via-sage-800/20 to-transparent"></div>
+          <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-terra-600 text-sand-50 px-4 py-2 text-[10px] uppercase tracking-[.22em]">
+            <i class="fa-solid fa-circle-dot"></i> Prijímame prihlášky
+          </span>
+          <h3 class="absolute bottom-5 left-6 right-6 font-serif text-3xl text-sand-50">Jogový pobyt pri mori</h3>
+        </div>
+        <div class="p-8 flex-1 flex flex-col">
+          <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-sage-700">
+            <span class="inline-flex items-center gap-2"><i class="fa-solid fa-location-dot text-terra-500"></i> Chorvátsko</span>
+            <span class="inline-flex items-center gap-2"><i class="fa-regular fa-calendar text-terra-500"></i> Termín: pripravujeme</span>
+            <span class="inline-flex items-center gap-2"><i class="fa-solid fa-users text-terra-500"></i> Malá skupina</span>
+          </div>
+          <p class="mt-5 text-sage-700 font-light leading-relaxed">
+            Ranná a večerná joga, kúpanie, výlety a spoločné jedlo. Presný program, cenu a výšku
+            zálohy vám pošleme na vyžiadanie — počet miest je obmedzený.
+          </p>
+          <div class="mt-5 rounded-2xl bg-white border border-sage-100 p-5 text-sm text-sage-700">
+            <i class="fa-solid fa-circle-info mr-1 text-terra-500"></i>
+            Rezervácia miesta zálohou. Letenky a ubytovanie riešime po potvrdení termínu.
+          </div>
+          <button onclick="pickPobyt('Jogový pobyt pri mori — Chorvátsko')" class="mt-6 self-start inline-flex items-center gap-2 rounded-full bg-sage-700 hover:bg-sage-800 text-sand-50 px-7 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
+            <i class="fa-regular fa-paper-plane"></i> Mám záujem
+          </button>
+        </div>
+      </article>
+
+      <!-- prázdny stav / výzva -->
+      <article class="rounded-3xl border-2 border-dashed border-sage-200 bg-sand-50 p-8 flex flex-col justify-center">
+        <span class="grid place-items-center w-14 h-14 rounded-2xl bg-sage-100 text-sage-700 text-xl"><i class="fa-regular fa-bell"></i></span>
+        <h3 class="mt-6 font-serif text-3xl text-sage-800">Chcete vedieť o novom pobyte prví?</h3>
+        <p class="mt-3 text-sage-700 font-light leading-relaxed">
+          Nové termíny otvárame priebežne. Napíšte nám nezáväzný dopyt a dáme vám vedieť hneď,
+          ako sa pobyt otvorí — ešte predtým, než ho zverejníme.
+        </p>
+        <a href="#dopyt" class="mt-6 self-start inline-flex items-center gap-2 rounded-full border border-sage-300 hover:bg-white text-sage-700 px-7 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
+          <i class="fa-regular fa-paper-plane"></i> Napísať dopyt
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HISTÓRIA POBYTOV ============ -->
+<section id="historia" class="py-24 sm:py-28 bg-sage-800 text-sand-100">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="max-w-2xl">
+      <p class="text-[11px] uppercase tracking-[.3em] text-terra-300">Boli sme tam</p>
+      <h2 class="mt-5 font-serif text-4xl sm:text-5xl leading-tight">História pobytov</h2>
+      <p class="mt-5 text-sand-200/80 font-light text-lg">Pohľad späť na uplynulé pobyty. Postupne sem pridáme fotky a spomienky z každého výjazdu.</p>
+    </div>
+
+    <!-- EDITUJTE: sem pridávajte uplynulé pobyty. -->
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <article class="rounded-3xl overflow-hidden bg-sage-900/40 border border-sand-100/10">
+        <div class="relative h-48 overflow-hidden">
+          <img src="img/hero.jpg" alt="Pobyt pri mori" class="w-full h-full object-cover">
+          <span class="absolute top-4 left-4 rounded-full bg-sand-50/90 text-sage-800 px-3 py-1 text-[10px] uppercase tracking-[.2em]">Chorvátsko</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-serif text-2xl text-sand-50">Joga pri mori</h3>
+          <p class="mt-2 text-sand-200/75 font-light text-sm">Spoločná ranná joga na móle, kúpanie a večere pri západe slnka.</p>
+        </div>
+      </article>
+      <article class="rounded-3xl overflow-hidden bg-sage-900/40 border border-sand-100/10">
+        <div class="relative h-48 overflow-hidden">
+          <img src="img/lekcie.jpg" alt="Pobyt pri mori" class="w-full h-full object-cover">
+          <span class="absolute top-4 left-4 rounded-full bg-sand-50/90 text-sage-800 px-3 py-1 text-[10px] uppercase tracking-[.2em]">Chorvátsko</span>
+        </div>
+        <div class="p-6">
+          <h3 class="font-serif text-2xl text-sand-50">Víkend s jogou</h3>
+          <p class="mt-2 text-sand-200/75 font-light text-sm">Predĺžený víkend plný pohybu, oddychu a dobrého jedla v malej skupine.</p>
+        </div>
+      </article>
+      <article class="rounded-3xl border border-dashed border-sand-100/20 p-6 flex flex-col justify-center items-start">
+        <span class="grid place-items-center w-12 h-12 rounded-2xl bg-sand-50/10 text-sand-100 text-lg"><i class="fa-solid fa-camera-retro"></i></span>
+        <h3 class="mt-5 font-serif text-2xl text-sand-50">Ďalšie pribudnú</h3>
+        <p class="mt-2 text-sand-200/75 font-light text-sm">Fotky a spomienky z pripravovaných pobytov doplníme sem.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOPYT (mailto) ============ -->
+<section id="dopyt" class="py-24 sm:py-32 bg-sand-50 grain">
+  <div class="mx-auto max-w-3xl px-5 sm:px-8">
+    <div class="text-center max-w-2xl mx-auto">
+      <p class="text-[11px] uppercase tracking-[.3em] text-terra-600">Prihláška &amp; dopyt</p>
+      <h2 class="mt-5 font-serif text-4xl sm:text-5xl text-sage-800 leading-tight">Mám záujem o pobyt</h2>
+      <p class="mt-5 text-sage-700 font-light text-lg">
+        Vyplňte formulár a odošlite — otvorí sa váš e-mailový program s pripravenou správou pre
+        Karin. Komunikácia aj prihlásenie prebieha priamo cez e-mail.
+      </p>
+    </div>
+
+    <form onsubmit="return sendDopyt(event)" class="mt-10 rounded-3xl bg-white border border-sage-100 shadow-xl shadow-sage-900/5 p-7 sm:p-10 space-y-5" novalidate>
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label for="f-name" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Meno a priezvisko *</label>
+          <input id="f-name" name="name" type="text" required placeholder="Vaše meno"
+            class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+        </div>
+        <div>
+          <label for="f-email" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">E-mail *</label>
+          <input id="f-email" name="email" type="email" required placeholder="vas@email.sk"
+            class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-5">
+        <div>
+          <label for="f-phone" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Telefón</label>
+          <input id="f-phone" name="phone" type="tel" placeholder="+421 …"
+            class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+        </div>
+        <div>
+          <label for="f-people" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Počet osôb</label>
+          <input id="f-people" name="people" type="number" min="1" value="1"
+            class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+        </div>
+      </div>
+      <div>
+        <label for="f-pobyt" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Pobyt</label>
+        <select id="f-pobyt" name="pobyt"
+          class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
+          <option value="Jogový pobyt pri mori — Chorvátsko">Jogový pobyt pri mori — Chorvátsko</option>
+          <option value="Všeobecný dopyt — chcem vedieť o nových pobytoch">Všeobecný dopyt — chcem vedieť o nových pobytoch</option>
+        </select>
+      </div>
+      <div>
+        <label for="f-message" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Správa</label>
+        <textarea id="f-message" name="message" rows="4" placeholder="Napíšte nám, na čo sa chcete opýtať…"
+          class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition resize-none"></textarea>
+      </div>
+      <button type="submit" class="w-full inline-flex items-center justify-center gap-3 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] shadow-lg shadow-terra-600/20 hover:-translate-y-0.5 transition-all duration-300">
+        <i class="fa-regular fa-paper-plane"></i> Odoslať e-mailom
+      </button>
+      <p id="dopytNote" hidden class="text-center text-sm text-sage-700">
+        <i class="fa-solid fa-circle-check text-sage-600 mr-1"></i>
+        Otvorili sme váš e-mailový program s pripravenou správou. Ak sa neotvoril, napíšte nám priamo na
+        <a href="mailto:info@vitasana.sk" class="text-terra-600 link-underline">info@vitasana.sk</a>.
+      </p>
+      <p class="text-center text-xs text-sage-600">
+        Alebo napíšte priamo na <a href="mailto:info@vitasana.sk" class="text-terra-600 link-underline">info@vitasana.sk</a>
+        &middot; <a href="tel:+421905123456" class="text-terra-600 link-underline">+421 905 123 456</a>
+      </p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-sage-800 text-sand-200/80 pt-16 pb-8">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="grid gap-10 md:grid-cols-4">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3">
+          <img src="img/logo-terracotta.jpg" alt="Vita Sana by Karin" class="h-16 w-16 rounded-xl object-cover shadow-sm" width="128" height="128">
+        </div>
+        <p class="mt-5 max-w-md font-light leading-relaxed">
+          Joga, arteterapia a chute ajurvédskej a marockej kuchyne. Miesto, kde sa napätie
+          v tele aj v mysli konečne pustí.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/vitasana_by_karin/" target="_blank" rel="noopener" aria-label="Instagram" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.threads.com/@vitasana_by_karin" target="_blank" rel="noopener" aria-label="Threads" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-threads"></i></a>
+          <a href="https://wa.me/421905123456" target="_blank" rel="noopener" aria-label="WhatsApp" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="mailto:info@vitasana.sk" aria-label="E-mail" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-[11px] uppercase tracking-[.22em] text-sand-50">Navigácia</p>
+        <ul class="mt-5 space-y-3 text-sm font-light">
+          <li><a href="index.html#piliere" class="link-underline hover:text-terra-300 transition-colors">Piliere</a></li>
+          <li><a href="index.html#lekcie" class="link-underline hover:text-terra-300 transition-colors">Lekcie jogy</a></li>
+          <li><a href="pobyty.html" class="link-underline hover:text-terra-300 transition-colors">Pobyty</a></li>
+          <li><a href="index.html#kontakt" class="link-underline hover:text-terra-300 transition-colors">Kde nás nájdete</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-[11px] uppercase tracking-[.22em] text-sand-50">Kontakt</p>
+        <ul class="mt-5 space-y-3 text-sm font-light">
+          <li class="flex gap-3"><i class="fa-solid fa-location-dot mt-1 text-terra-400"></i><span>Jozefa Cígera Hronského 389/4<br>960 01 Zvolen</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-phone mt-1 text-terra-400"></i><a href="tel:+421905123456" class="link-underline hover:text-terra-300">+421 905 123 456</a></li>
+          <li class="flex gap-3"><i class="fa-regular fa-envelope mt-1 text-terra-400"></i><a href="mailto:info@vitasana.sk" class="link-underline hover:text-terra-300">info@vitasana.sk</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-sand-200/10 flex flex-col sm:flex-row gap-3 justify-between text-xs text-sand-200/50">
+      <p>&copy; <span id="year"></span> Vita Sana by Karin. Všetky práva vyhradené.</p>
+      <p>Rezervácia nutná vopred &middot; Obmedzený počet miest</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function toggleMenu(){
+    const m = document.getElementById('mobileMenu');
+    const i = document.getElementById('burgerIcon');
+    m.classList.toggle('hidden');
+    i.classList.toggle('fa-bars');
+    i.classList.toggle('fa-xmark');
+  }
+
+  function pickPobyt(v){
+    const sel = document.getElementById('f-pobyt');
+    let found = [...sel.options].some(o => o.value === v);
+    if(!found){ const o = document.createElement('option'); o.value = v; o.textContent = v; sel.insertBefore(o, sel.firstChild); }
+    sel.value = v;
+    document.getElementById('dopyt').scrollIntoView({behavior:'smooth'});
+  }
+
+  function sendDopyt(e){
+    e.preventDefault();
+    const f = e.target;
+    const val = n => (f.elements[n] && f.elements[n].value || '').trim();
+    if(!val('name') || !val('email')){ f.reportValidity(); return false; }
+    const subject = 'Dopyt – pobyt: ' + (val('pobyt') || 'všeobecný');
+    const body =
+      'Meno a priezvisko: ' + val('name') + '\n' +
+      'E-mail: ' + val('email') + '\n' +
+      'Telefón: ' + val('phone') + '\n' +
+      'Pobyt: ' + val('pobyt') + '\n' +
+      'Počet osôb: ' + val('people') + '\n\n' +
+      'Správa:\n' + val('message') + '\n';
+    window.location.href = 'mailto:info@vitasana.sk?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    document.getElementById('dopytNote').hidden = false;
+    return false;
+  }
+</script>
+</body>
+</html>

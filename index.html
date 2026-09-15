@@ -61,6 +61,7 @@ tailwind.config = {
       <nav class="hidden lg:flex items-center gap-9 text-[13px] uppercase tracking-[.16em] text-sage-700">
         <a href="#piliere" class="link-underline hover:text-terra-600 transition-colors">Piliere</a>
         <a href="#lekcie" class="link-underline hover:text-terra-600 transition-colors">Lekcie</a>
+        <a href="pobyty.html" class="link-underline hover:text-terra-600 transition-colors">Pobyty</a>
         <a href="#info" class="link-underline hover:text-terra-600 transition-colors">Praktické info</a>
         <a href="#kontakt" class="link-underline hover:text-terra-600 transition-colors">Kde nás nájdete</a>
       </nav>
@@ -81,6 +82,7 @@ tailwind.config = {
     <div class="px-6 py-6 flex flex-col gap-1 text-sage-700">
       <a onclick="toggleMenu()" href="#piliere" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Piliere</a>
       <a onclick="toggleMenu()" href="#lekcie" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Lekcie</a>
+      <a onclick="toggleMenu()" href="pobyty.html" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Pobyty</a>
       <a onclick="toggleMenu()" href="#info" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Praktické info</a>
       <a onclick="toggleMenu()" href="#kontakt" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Kde nás nájdete</a>
       <button onclick="toggleMenu();openModal()" class="mt-5 rounded-full bg-terra-600 text-sand-50 px-6 py-4 text-[12px] uppercase tracking-[.18em]">
@@ -195,12 +197,43 @@ tailwind.config = {
         <h3 class="relative mt-7 font-serif text-2xl text-sage-800">Ajurvédska &amp; marocká gastronómia</h3>
         <p class="relative mt-3 text-sage-700 font-light leading-relaxed">
           Kurzy zdravého varenia priamo s majstrom ajurvédskej kuchyne
-          <strong class="font-medium text-sage-700">Zdenkom Krajčovičom</strong> a s receptami
-          marockej kuchyne. Kitchari, chapati, mätový dip &mdash; korenie, ktoré hreje,
+          <strong class="font-medium text-sage-700">Zdenkom Krajčovičom</strong> a majstrom
+          marockej kuchyne <strong class="font-medium text-sage-700">Hamidom El Asmar</strong>.
+          Kitchari, chapati, mätový dip &mdash; korenie, ktoré hreje,
           jedlo, ktoré netlačí a podporí to, čo ste si odcvičili.
         </p>
         <button onclick="openModal('Gastronómia')" class="relative mt-6 inline-flex items-center gap-2 text-sm uppercase tracking-[.16em] text-terra-600 link-underline">Mám záujem <i class="fa-solid fa-arrow-right text-xs"></i></button>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POBYTY ============ -->
+<section id="pobyty" class="py-16 sm:py-20 bg-sand-50">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="reveal relative overflow-hidden rounded-3xl bg-sage-800 text-sand-100">
+      <img src="img/hero.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-20">
+      <div class="absolute inset-0 bg-gradient-to-r from-sage-900/80 to-sage-800/40"></div>
+      <div class="relative p-10 sm:p-14 grid lg:grid-cols-[1.4fr,1fr] gap-10 items-center">
+        <div>
+          <p class="text-[11px] uppercase tracking-[.3em] text-terra-300">Ďalšia služba</p>
+          <h2 class="mt-4 font-serif text-4xl sm:text-5xl leading-tight">Jogové pobyty pri mori</h2>
+          <p class="mt-5 text-sand-200/85 font-light text-lg max-w-xl">
+            Niekoľkodňové pobyty s jogou, oddychom a dobrým jedlom. Pobyt sa otvorí, vy sa
+            nahlásite a miesto potvrdíte zálohou &mdash; letenky a ubytovanie doriešime spoločne.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-x-8 gap-y-3 text-sm text-sand-200/80">
+            <span class="inline-flex items-center gap-2"><i class="fa-solid fa-bullhorn text-terra-300"></i> Aktuálne termíny</span>
+            <span class="inline-flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-terra-300"></i> História pobytov</span>
+            <span class="inline-flex items-center gap-2"><i class="fa-regular fa-paper-plane text-terra-300"></i> Prihláška cez e-mail</span>
+          </div>
+        </div>
+        <div class="lg:justify-self-end">
+          <a href="pobyty.html" class="inline-flex items-center justify-center gap-3 rounded-full bg-terra-500 hover:bg-terra-600 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+            Pozrieť pobyty <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -397,6 +430,7 @@ tailwind.config = {
         <ul class="mt-5 space-y-3 text-sm font-light">
           <li><a href="#piliere" class="link-underline hover:text-terra-300 transition-colors">Piliere</a></li>
           <li><a href="#lekcie" class="link-underline hover:text-terra-300 transition-colors">Lekcie jogy</a></li>
+          <li><a href="pobyty.html" class="link-underline hover:text-terra-300 transition-colors">Pobyty</a></li>
           <li><a href="#info" class="link-underline hover:text-terra-300 transition-colors">Praktické info</a></li>
           <li><a href="#kontakt" class="link-underline hover:text-terra-300 transition-colors">Kde nás nájdete</a></li>
           <li><button onclick="openModal()" class="link-underline hover:text-terra-300 transition-colors">Rezervácia</button></li>

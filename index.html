@@ -295,7 +295,7 @@ tailwind.config = {
 
       <!-- ŠTÚDIO -->
       <article class="reveal group rounded-3xl overflow-hidden border-2 border-sage-200 bg-sage-50 hover:border-sage-500 hover:shadow-2xl hover:shadow-sage-900/10 transition-all duration-500">
-        <div class="relative h-52 overflow-hidden arch">
+        <div class="relative h-52 overflow-hidden">
           <img src="img/studio.jpg" data-fallback="https://images.unsplash.com/photo-1591291621164-2c6367723315?auto=format&fit=crop&w=1400&q=80" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="Jogové štúdio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
           <div class="absolute inset-0 bg-gradient-to-t from-sage-800/80 via-sage-800/20 to-transparent"></div>
           <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-sage-600 text-sand-50 px-4 py-2 text-[10px] uppercase tracking-[.22em]">
@@ -338,44 +338,19 @@ tailwind.config = {
         </div>
       </article>
 
-      <!-- SALÓN -->
-      <article class="reveal group rounded-3xl overflow-hidden border-2 border-terra-200 bg-terra-50 hover:border-terra-500 hover:shadow-2xl hover:shadow-terra-900/10 transition-all duration-500">
-        <div class="relative h-52 overflow-hidden arch">
-          <img src="img/salon.jpg" data-fallback="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=1400&q=80" onerror="this.onerror=null;this.src=this.dataset.fallback" alt="Salón" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-terra-800/80 via-terra-800/20 to-transparent"></div>
-          <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-full bg-terra-600 text-sand-50 px-4 py-2 text-[10px] uppercase tracking-[.22em]">
-            <i class="fa-solid fa-palette"></i> Salón
+      <!-- MAPA -->
+      <article class="reveal group flex flex-col rounded-3xl overflow-hidden border-2 border-sage-200 bg-sage-50 hover:border-sage-500 hover:shadow-2xl hover:shadow-sage-900/10 transition-all duration-500">
+        <div class="p-6 sm:p-7 border-b border-sage-100 bg-white">
+          <span class="inline-flex items-center gap-2 rounded-full bg-sage-600 text-sand-50 px-4 py-2 text-[10px] uppercase tracking-[.22em]">
+            <i class="fa-solid fa-location-dot"></i> Nájdete nás tu
           </span>
-          <h3 class="absolute bottom-5 left-6 right-6 font-serif text-3xl text-sand-50">Somolického 2</h3>
+          <h3 class="mt-4 font-serif text-2xl sm:text-3xl text-sage-800">Jozefa Cígera Hronského 389/4</h3>
+          <p class="mt-1 text-sage-600 font-light">960 01 Zvolen</p>
         </div>
-        <div class="p-8">
-          <p class="text-sage-600 font-light leading-relaxed">
-            Tichšie miesto pre arteterapiu, individuálne konzultácie a stretnutia okolo
-            ajurvédskej a marockej kuchyne &mdash; receptov, korenín a chutí.
-          </p>
-
-          <div class="mt-7 rounded-2xl bg-white border border-terra-100 p-5">
-            <p class="text-[11px] uppercase tracking-[.22em] text-terra-500">Otváracie hodiny</p>
-            <dl class="mt-4 space-y-2.5 text-sm">
-              <div class="flex justify-between gap-4"><dt class="text-sage-600">Pondelok &ndash; Piatok</dt><dd class="font-medium text-sage-800">09:00 &ndash; 18:00</dd></div>
-              <div class="flex justify-between gap-4"><dt class="text-sage-600">Sobota</dt><dd class="font-medium text-sage-800">09:00 &ndash; 14:00</dd></div>
-              <div class="flex justify-between gap-4"><dt class="text-sage-600">Nedeľa</dt><dd class="text-sage-400">Zatvorené</dd></div>
-              <div class="flex justify-between gap-4"><dt class="text-sage-600">Arteterapia</dt><dd class="font-medium text-sage-800">podľa dohody</dd></div>
-            </dl>
-            <p class="mt-4 pt-4 border-t border-terra-100 text-xs text-terra-600">
-              <i class="fa-solid fa-circle-info mr-1"></i> Vstup výhradne na objednanie.
-            </p>
-          </div>
-
-          <div class="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="tel:+421905123456" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-6 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
-              <i class="fa-solid fa-phone"></i> +421 905 123 456
-            </a>
-            <button onclick="openModal('Arteterapia','Salón — Somolického 2')" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-terra-300 hover:bg-white text-terra-700 px-6 py-3.5 text-[11px] uppercase tracking-[.18em] transition-colors">
-              <i class="fa-regular fa-calendar-check"></i> Rezervovať sem
-            </button>
-          </div>
-        </div>
+        <iframe
+          title="Mapa — Jozefa Cígera Hronského 389/4, Zvolen"
+          src="https://www.google.com/maps?q=Jozefa%20C%C3%ADgera%20Hronsk%C3%A9ho%20389%2F4%2C%20960%2001%20Zvolen&output=embed"
+          class="w-full flex-1 min-h-[360px]" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </article>
     </div>
 

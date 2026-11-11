@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="sk" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rezervácia — Vita Sana by Karin</title>
+<meta name="description" content="Rezervujte si lekciu jogy vo Vita Sana by Karin. Vyberte si voľný termín v online kalendári — rezervácia sa potvrdí automaticky e-mailom.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        sage:  { 50:'#f8faf4', 100:'#eef3e3', 200:'#dde6c9', 300:'#c6d4a8', 400:'#adc086', 500:'#93a96a', 600:'#7a9053', 700:'#627443', 800:'#4f5e39', 900:'#414d31' },
+        sand:  { 50:'#fdfcf7', 100:'#f8f4e9', 200:'#f0e8d3', 300:'#e4d6b6', 400:'#d5bd91', 500:'#c5a271', 600:'#b08a57', 700:'#937049', 800:'#795c3e', 900:'#644d35' },
+        terra: { 50:'#fdf6f3', 100:'#faeae3', 200:'#f4d5c7', 300:'#e9b9a3', 400:'#db947a', 500:'#c9765a', 600:'#b25f45', 700:'#954c37', 800:'#7b402f', 900:'#67382a' }
+      },
+      fontFamily: {
+        serif: ['"Cormorant Garamond"','Georgia','serif'],
+        sans: ['Jost','ui-sans-serif','system-ui','sans-serif']
+      }
+    }
+  }
+}
+</script>
+<script>
+  try{
+    var t = localStorage.getItem('theme');
+    if(t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      document.documentElement.classList.add('dark');
+    }
+  }catch(e){}
+</script>
+<style>
+  body{background:#fdfcf7}
+  .grain{background-image:radial-gradient(rgba(147,169,106,.10) 1px,transparent 1px);background-size:18px 18px}
+  .link-underline{background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .35s ease}
+  .link-underline:hover{background-size:100% 1px}
+  html{scroll-padding-top:96px}
+
+  /* ===== Tmavý režim ===== */
+  html.dark{color-scheme:dark}
+  html.dark body{background-color:#10140d;color:#e7e3d4}
+  html.dark section.bg-sand-50{background-color:#10140d}
+  html.dark .bg-white{background-color:#1b2219}
+  html.dark .bg-sage-50{background-color:#1b2219}
+  html.dark .bg-sage-100{background-color:#242d1f}
+  html.dark .bg-terra-100{background-color:#2c201b}
+  html.dark .bg-sage-800{background-color:#161d0f}
+  html.dark header[class*="bg-sand-50/90"]{background-color:rgba(16,20,13,.9)!important}
+  html.dark #mobileMenu{background-color:rgba(16,20,13,.98)}
+  html.dark .text-sage-800{color:#eef3e3}
+  html.dark .text-sage-700{color:#d3dbc4}
+  html.dark .text-sage-600{color:#a6b58d}
+  html.dark .text-sage-400{color:#8fa06a}
+  html.dark .border-sage-100{border-color:rgba(238,243,227,.08)}
+  html.dark .border-sage-200{border-color:rgba(238,243,227,.14)}
+  html.dark .border-sage-300{border-color:rgba(238,243,227,.20)}
+</style>
+</head>
+<body class="font-sans text-sage-800 antialiased">
+
+<!-- ============ HEADER ============ -->
+<header class="fixed top-0 inset-x-0 z-50 bg-sand-50/90 backdrop-blur-md shadow-sm shadow-sage-900/5">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="flex items-center justify-between py-4">
+      <a href="index.html" class="flex items-center group" aria-label="Vita Sana by Karin">
+        <img src="img/logo-header.png" alt="Vita Sana by Karin" class="h-10 sm:h-11 w-auto object-contain group-hover:opacity-90 transition-opacity duration-500" width="1661" height="520">
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 text-[13px] uppercase tracking-[.16em] text-sage-700">
+        <a href="index.html#piliere" class="link-underline hover:text-terra-600 transition-colors">Piliere</a>
+        <a href="index.html#lekcie" class="link-underline hover:text-terra-600 transition-colors">Lekcie</a>
+        <a href="pobyty.html" class="link-underline hover:text-terra-600 transition-colors">Pobyty</a>
+        <a href="rezervacia.html" class="text-terra-600">Rezervácia</a>
+        <a href="index.html#kontakt" class="link-underline hover:text-terra-600 transition-colors">Kde nás nájdete</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleTheme()" aria-label="Prepnúť tmavý režim" class="grid place-items-center w-11 h-11 rounded-full border border-sage-200 text-sage-700 hover:bg-sage-50 transition">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+        <a href="#kalendar" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-6 py-3 text-[12px] uppercase tracking-[.18em] shadow-lg shadow-terra-600/20 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+          <i class="fa-regular fa-calendar-check"></i> Vybrať termín
+        </a>
+        <button onclick="toggleMenu()" aria-label="Menu" class="lg:hidden grid place-items-center w-11 h-11 rounded-full border border-sage-200 text-sage-700 hover:bg-sage-50 transition">
+          <i id="burgerIcon" class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden bg-sand-50/98 backdrop-blur border-t border-sage-100">
+    <div class="px-6 py-6 flex flex-col gap-1 text-sage-700">
+      <a onclick="toggleMenu()" href="index.html#piliere" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Piliere</a>
+      <a onclick="toggleMenu()" href="index.html#lekcie" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Lekcie</a>
+      <a onclick="toggleMenu()" href="pobyty.html" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Pobyty</a>
+      <a onclick="toggleMenu()" href="rezervacia.html" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm text-terra-600">Rezervácia</a>
+      <a onclick="toggleMenu()" href="index.html#kontakt" class="py-3 border-b border-sage-100 uppercase tracking-[.16em] text-sm">Kde nás nájdete</a>
+      <a onclick="toggleMenu()" href="#kalendar" class="mt-5 text-center rounded-full bg-terra-600 text-sand-50 px-6 py-4 text-[12px] uppercase tracking-[.18em]">
+        <i class="fa-regular fa-calendar-check mr-2"></i> Vybrať termín
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden grain pt-36 pb-16 sm:pt-44 sm:pb-20">
+  <div class="absolute inset-0 -z-10">
+    <img src="img/hero.jpg" alt="" class="w-full h-full object-cover">
+    <div class="absolute inset-0 dark:hidden bg-gradient-to-r from-sand-50 via-sand-50/92 to-sand-50/50"></div>
+    <div class="absolute inset-0 dark:hidden bg-gradient-to-t from-sand-50 via-transparent to-sand-50/70"></div>
+    <div class="absolute inset-0 hidden dark:block bg-gradient-to-r from-[#10140d] via-[#10140d]/90 to-[#10140d]/45"></div>
+    <div class="absolute inset-0 hidden dark:block bg-gradient-to-t from-[#10140d] via-transparent to-[#10140d]/60"></div>
+  </div>
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <a href="index.html" class="inline-flex items-center gap-2 text-[12px] uppercase tracking-[.18em] text-sage-700 hover:text-terra-600 transition-colors">
+      <i class="fa-solid fa-arrow-left"></i> Späť na hlavnú stránku
+    </a>
+    <div class="max-w-2xl mt-8">
+      <p class="inline-flex items-center gap-3 text-[11px] uppercase tracking-[.3em] text-terra-700 bg-terra-100/70 rounded-full px-4 py-2">
+        <i class="fa-regular fa-calendar-check"></i> Rezervácia online
+      </p>
+      <h1 class="mt-8 font-serif text-5xl sm:text-6xl leading-[1.05] text-sage-800">
+        Vyberte si<br><span class="italic text-terra-600">voľný termín</span>
+      </h1>
+      <p class="mt-7 text-lg text-sage-700 leading-relaxed font-light">
+        Kliknite na voľný termín v kalendári nižšie, vyplňte svoje údaje a rezervácia sa
+        potvrdí automaticky e-mailom. Lekcie prebiehajú v jogovom štúdiu na
+        J. C. Hronského 4 vo Zvolene.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KALENDÁR ============ -->
+<section id="kalendar" class="pb-24 sm:pb-28 bg-sand-50">
+  <div class="mx-auto max-w-5xl px-5 sm:px-8">
+    <div class="rounded-3xl overflow-hidden border border-sage-100 bg-white shadow-xl shadow-sage-900/5">
+      <iframe
+        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0776BC167G3B7zLVN12jAZ2SHdruY3HTn32Cr6uVk1Od7DQgAvF-j_IEQI6RzJBQvn7aUKI9jW?gv=true"
+        title="Rezervácia termínu – Vita Sana" width="100%" height="760" frameborder="0"
+        style="border:0"></iframe>
+    </div>
+
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      <div class="rounded-2xl bg-white border border-sage-100 p-6">
+        <span class="grid place-items-center w-12 h-12 rounded-2xl bg-sage-600 text-sand-50 text-lg"><i class="fa-regular fa-hand-pointer"></i></span>
+        <h3 class="mt-4 font-serif text-xl text-sage-800">1 · Vyberte termín</h3>
+        <p class="mt-2 text-sm text-sage-700 font-light leading-relaxed">Zvoľte si deň a čas, ktorý vám vyhovuje, priamo v kalendári.</p>
+      </div>
+      <div class="rounded-2xl bg-white border border-sage-100 p-6">
+        <span class="grid place-items-center w-12 h-12 rounded-2xl bg-terra-500 text-sand-50 text-lg"><i class="fa-regular fa-pen-to-square"></i></span>
+        <h3 class="mt-4 font-serif text-xl text-sage-800">2 · Vyplňte údaje</h3>
+        <p class="mt-2 text-sm text-sage-700 font-light leading-relaxed">Zadajte meno a kontakt. Rezervácia sa potvrdí automaticky e-mailom.</p>
+      </div>
+      <div class="rounded-2xl bg-white border border-sage-100 p-6">
+        <span class="grid place-items-center w-12 h-12 rounded-2xl bg-sage-600 text-sand-50 text-lg"><i class="fa-solid fa-person-walking"></i></span>
+        <h3 class="mt-4 font-serif text-xl text-sage-800">3 · Prídete na lekciu</h3>
+        <p class="mt-2 text-sm text-sage-700 font-light leading-relaxed">Pripomienka vám príde e-mailom. Tešíme sa na vás v štúdiu.</p>
+      </div>
+    </div>
+
+    <p class="mt-8 text-center text-sm text-sage-600 font-light">
+      Radšej telefonicky alebo potrebujete poradiť? Zavolajte na
+      <a href="tel:+421905123456" class="text-terra-600 link-underline">+421 905 123 456</a>
+      alebo napíšte na <a href="mailto:info@vitasana.sk" class="text-terra-600 link-underline">info@vitasana.sk</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-sage-800 text-sand-200/80 pt-16 pb-8">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="grid gap-10 md:grid-cols-4">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-3">
+          <img src="img/logo-footer-beige.png" alt="Vita Sana by Karin" class="h-11 sm:h-12 w-auto object-contain" width="1661" height="520">
+        </div>
+        <p class="mt-5 max-w-md font-light leading-relaxed">
+          Joga, arteterapia a chute ajurvédskej a marockej kuchyne. Miesto, kde sa napätie
+          v tele aj v mysli konečne pustí.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/vitasana_by_karin/" target="_blank" rel="noopener" aria-label="Instagram" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.threads.com/@vitasana_by_karin" target="_blank" rel="noopener" aria-label="Threads" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-threads"></i></a>
+          <a href="https://wa.me/421905123456" target="_blank" rel="noopener" aria-label="WhatsApp" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="mailto:info@vitasana.sk" aria-label="E-mail" class="grid place-items-center w-11 h-11 rounded-full border border-sand-200/20 hover:bg-terra-500 hover:border-terra-500 hover:text-sand-50 transition-colors"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-[11px] uppercase tracking-[.22em] text-sand-50">Navigácia</p>
+        <ul class="mt-5 space-y-3 text-sm font-light">
+          <li><a href="index.html#piliere" class="link-underline hover:text-terra-300 transition-colors">Piliere</a></li>
+          <li><a href="index.html#lekcie" class="link-underline hover:text-terra-300 transition-colors">Lekcie jogy</a></li>
+          <li><a href="pobyty.html" class="link-underline hover:text-terra-300 transition-colors">Pobyty</a></li>
+          <li><a href="rezervacia.html" class="link-underline hover:text-terra-300 transition-colors">Rezervácia</a></li>
+          <li><a href="index.html#kontakt" class="link-underline hover:text-terra-300 transition-colors">Kde nás nájdete</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-[11px] uppercase tracking-[.22em] text-sand-50">Kontakt</p>
+        <ul class="mt-5 space-y-3 text-sm font-light">
+          <li class="flex gap-3"><i class="fa-solid fa-location-dot mt-1 text-terra-400"></i><span>Jozefa Cígera Hronského 389/4<br>960 01 Zvolen</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-phone mt-1 text-terra-400"></i><a href="tel:+421905123456" class="link-underline hover:text-terra-300">+421 905 123 456</a></li>
+          <li class="flex gap-3"><i class="fa-regular fa-envelope mt-1 text-terra-400"></i><a href="mailto:info@vitasana.sk" class="link-underline hover:text-terra-300">info@vitasana.sk</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-sand-200/10 flex flex-col sm:flex-row gap-3 justify-between text-xs text-sand-200/50">
+      <p>&copy; <span id="year"></span> Vita Sana by Karin. Všetky práva vyhradené.</p>
+      <p>Rezervácia nutná vopred &middot; Obmedzený počet miest</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function updateThemeIcon(){
+    const on = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('#themeIcon, #themeIconM').forEach(i => i.className = 'fa-solid ' + (on ? 'fa-sun' : 'fa-moon'));
+  }
+  function toggleTheme(){
+    const on = document.documentElement.classList.toggle('dark');
+    try{ localStorage.setItem('theme', on ? 'dark' : 'light'); }catch(e){}
+    updateThemeIcon();
+  }
+  updateThemeIcon();
+
+  function toggleMenu(){
+    const m = document.getElementById('mobileMenu');
+    const i = document.getElementById('burgerIcon');
+    m.classList.toggle('hidden');
+    i.classList.toggle('fa-bars');
+    i.classList.toggle('fa-xmark');
+  }
+</script>
+</body>
+</html>

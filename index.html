@@ -339,8 +339,8 @@ tailwind.config = {
         <div class="relative mt-7 rounded-2xl bg-sand-50/10 backdrop-blur border border-sand-50/20 p-6">
           <p class="flex items-start gap-3 text-sand-50">
             <i class="fa-solid fa-triangle-exclamation mt-1"></i>
-            <span><strong class="font-medium">Rezervácia je nutná vopred</strong> &mdash; cez formulár nižšie,
-            telefonicky, správou na Instagrame alebo cez rezervačný systém Bookio.
+            <span><strong class="font-medium">Rezervácia je nutná vopred</strong> &mdash; vyberte si voľný termín
+            cez tlačidlo nižšie, telefonicky alebo správou na Instagrame.
             Bez rezervácie, žiaľ, nevieme garantovať voľné miesto.</span>
           </p>
         </div>
@@ -499,136 +499,34 @@ tailwind.config = {
   </div>
 </footer>
 
-<!-- TODO: doplniť priamy odkaz na rezervačný systém Bookio (Karin ho má v bio na Instagrame)
-     a pridať ho ako tlačidlo do sekcie „Kapacita a rezervácia" aj do modalu. -->
 
 <!-- ============ MODAL ============ -->
 <div id="modal" class="fixed inset-0 z-[100] hidden">
   <div id="backdrop" class="absolute inset-0 bg-sage-800/50 backdrop-blur-sm opacity-0 transition-opacity duration-300" onclick="closeModal()"></div>
 
   <div class="relative h-full overflow-y-auto p-4 sm:p-8 flex items-start sm:items-center justify-center">
-    <div id="modalCard" class="relative w-full max-w-lg rounded-3xl bg-sand-50 shadow-2xl my-auto opacity-0 translate-y-6 scale-95 transition-all duration-300">
+    <div id="modalCard" class="relative w-full max-w-3xl rounded-3xl bg-sand-50 shadow-2xl my-auto opacity-0 translate-y-6 scale-95 transition-all duration-300">
       <button onclick="closeModal()" aria-label="Zavrieť" class="absolute right-5 top-5 grid place-items-center w-10 h-10 rounded-full bg-white/80 hover:bg-white text-sage-700 transition z-10">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <!-- FORM -->
-      <div id="formWrap" class="p-7 sm:p-10">
-        <p class="text-[11px] uppercase tracking-[.28em] text-terra-600">Žiadosť o termín</p>
-        <h3 class="mt-3 font-serif text-3xl text-sage-800">Rezervovať termín</h3>
-        <p class="mt-3 text-sm text-sage-700 font-light">
-          Vyplňte formulár a ja sa vám ozvem s potvrdením. Kapacita je obmedzená &mdash;
-          rezervácia je platná až po mojej odpovedi.
+      <!-- GOOGLE REZERVÁCIE -->
+      <div id="bookingEmbed" class="p-5 sm:p-8">
+        <p class="text-[11px] uppercase tracking-[.28em] text-terra-600">Rezervácia termínu</p>
+        <h3 class="mt-3 font-serif text-3xl text-sage-800">Vyberte si voľný termín</h3>
+        <p class="mt-2 mb-5 text-sm text-sage-700 font-light">
+          Kliknite na voľný termín, vyplňte svoje údaje a rezervácia sa potvrdí
+          automaticky e-mailom. Lekcie prebiehajú v jogovom štúdiu na J. C. Hronského 4, Zvolen.
         </p>
-
-        <form id="bookingForm" class="mt-7 space-y-4" novalidate>
-          <div>
-            <label for="f-name" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Meno a priezvisko *</label>
-            <input id="f-name" name="name" type="text" required placeholder="Karin Nováková"
-              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
-            <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
-          </div>
-
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label for="f-phone" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Telefón *</label>
-              <input id="f-phone" name="phone" type="tel" required placeholder="+421 900 000 000"
-                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
-              <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
-            </div>
-            <div>
-              <label for="f-email" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">E-mail</label>
-              <input id="f-email" name="email" type="email" placeholder="vas@email.sk"
-                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
-              <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
-            </div>
-          </div>
-
-          <div>
-            <label for="f-service" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">O čo máte záujem? *</label>
-            <select id="f-service" name="service" required
-              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
-              <option value="">Vyberte...</option>
-              <optgroup label="Joga — štúdio, J. C. Hronského 4">
-                <option>Power joga</option>
-                <option>Hatha joga</option>
-                <option>Dance flow joga</option>
-                <option>Chair joga (joga na stoličkách)</option>
-              </optgroup>
-              <optgroup label="Arteterapia &amp; gastronómia">
-                <option>Arteterapia</option>
-                <option>Gastronómia</option>
-              </optgroup>
-              <option>Neviem sa rozhodnúť — poraďte mi</option>
-            </select>
-            <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
-          </div>
-
-          <div>
-            <label for="f-place" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Lokalita *</label>
-            <select id="f-place" name="place" required
-              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
-              <option>Jogové štúdio — J. C. Hronského 389/4, Zvolen</option>
-            </select>
-            <p class="err hidden mt-1.5 text-xs text-terra-600"></p>
-          </div>
-
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label for="f-date" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Preferovaný dátum</label>
-              <input id="f-date" name="date" type="date"
-                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
-            </div>
-            <div>
-              <label for="f-time" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Časť dňa</label>
-              <select id="f-time" name="time"
-                class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition">
-                <option>Ráno (8:00 – 11:00)</option>
-                <option>Poobede (11:00 – 16:00)</option>
-                <option>Večer (16:00 – 20:00)</option>
-                <option>Je mi to jedno</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label for="f-msg" class="block text-[11px] uppercase tracking-[.18em] text-sage-600 mb-2">Správa &mdash; čo vás trápi?</label>
-            <textarea id="f-msg" name="message" rows="3" placeholder="Napr. bolesti krčnej chrbtice, migrény, sedavé zamestnanie..."
-              class="w-full rounded-xl border border-sage-200 bg-white px-4 py-3.5 text-sage-800 placeholder-sage-300 focus:border-terra-500 focus:ring-2 focus:ring-terra-200 transition resize-none"></textarea>
-          </div>
-
-          <label class="flex items-start gap-3 text-xs text-sage-700 font-light">
-            <input id="f-gdpr" type="checkbox" required class="mt-0.5 w-4 h-4 rounded border-sage-300 text-terra-600 focus:ring-terra-300">
-            <span>Súhlasím so spracovaním uvedených údajov za účelom vybavenia mojej žiadosti o rezerváciu. *</span>
-          </label>
-          <p id="gdprErr" class="err hidden -mt-2 text-xs text-terra-600"></p>
-
-          <button type="submit" id="submitBtn"
-            class="w-full inline-flex items-center justify-center gap-3 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] shadow-lg shadow-terra-600/20 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:translate-y-0">
-            <i class="fa-regular fa-paper-plane"></i> Odoslať žiadosť
-          </button>
-
-          <p class="text-center text-xs text-sage-600 font-light">
-            Alebo rovno zavolajte: <a href="tel:+421905123456" class="text-terra-600 link-underline">+421 905 123 456</a>
-          </p>
-        </form>
-      </div>
-
-      <!-- SUCCESS -->
-      <div id="successWrap" class="hidden p-10 sm:p-12 text-center">
-        <div class="mx-auto grid place-items-center w-20 h-20 rounded-full bg-sage-100 text-sage-700 text-3xl">
-          <i class="fa-solid fa-check"></i>
+        <div class="rounded-2xl overflow-hidden border border-sage-100 bg-white">
+          <iframe id="gcalFrame"
+            data-src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0776BC167G3B7zLVN12jAZ2SHdruY3HTn32Cr6uVk1Od7DQgAvF-j_IEQI6RzJBQvn7aUKI9jW?gv=true"
+            title="Rezervácia termínu – Vita Sana" width="100%" height="640" frameborder="0"
+            style="border:0" loading="lazy"></iframe>
         </div>
-        <h3 class="mt-7 font-serif text-3xl text-sage-800">Žiadosť odoslaná</h3>
-        <p class="mt-4 text-sage-700 font-light leading-relaxed">
-          Ďakujem! Ozvem sa vám <strong class="font-medium text-sage-800">do 24 hodín</strong>
-          s potvrdením termínu. Pripomínam &mdash; rezervácia je platná až po mojom potvrdení,
-          keďže počet miest je obmedzený.
+        <p class="mt-4 text-center text-xs text-sage-600 font-light">
+          Alebo rovno zavolajte: <a href="tel:+421905123456" class="text-terra-600 link-underline">+421 905 123 456</a>
         </p>
-        <div id="recap" class="mt-6 text-left rounded-2xl bg-white border border-sage-100 p-5 text-sm space-y-2"></div>
-        <button onclick="closeModal()" class="mt-7 w-full rounded-full bg-sage-700 hover:bg-sage-800 text-sand-50 px-8 py-4 text-[12px] uppercase tracking-[.2em] transition-colors">
-          Zavrieť
-        </button>
       </div>
     </div>
   </div>
@@ -777,14 +675,9 @@ const modal = document.getElementById('modal');
 const backdrop = document.getElementById('backdrop');
 const card = document.getElementById('modalCard');
 
-function openModal(service, place){
-  document.getElementById('formWrap').classList.remove('hidden');
-  document.getElementById('successWrap').classList.add('hidden');
-  if(service){
-    const sel = document.getElementById('f-service');
-    [...sel.options].forEach(o=>{ if(o.text.trim().toLowerCase().startsWith(service.toLowerCase())) sel.value = o.value || o.text; });
-  }
-  if(place) document.getElementById('f-place').value = place;
+function openModal(){
+  const f = document.getElementById('gcalFrame');
+  if(f && !f.src){ f.src = f.dataset.src; }   // načítaj Google rezervácie až pri otvorení
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   requestAnimationFrame(()=>{
@@ -798,73 +691,6 @@ function closeModal(){
   setTimeout(()=>{ modal.classList.add('hidden'); document.body.style.overflow=''; }, 280);
 }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !modal.classList.contains('hidden')) closeModal(); });
-
-/* min. dátum = dnes */
-document.getElementById('f-date').min = new Date().toISOString().split('T')[0];
-
-/* ---------- VALIDÁCIA + ODOSLANIE ---------- */
-function setErr(input, msg){
-  const p = input.closest('div').querySelector('.err');
-  if(msg){ input.classList.add('border-terra-500'); if(p){p.textContent=msg;p.classList.remove('hidden');} }
-  else   { input.classList.remove('border-terra-500'); if(p){p.classList.add('hidden');} }
-}
-
-const form = document.getElementById('bookingForm');
-form.addEventListener('submit', e=>{
-  e.preventDefault();
-  let ok = true;
-
-  const name = document.getElementById('f-name');
-  if(name.value.trim().length < 3){ setErr(name,'Zadajte, prosím, celé meno.'); ok=false; } else setErr(name,'');
-
-  const phone = document.getElementById('f-phone');
-  if(!/^[+0-9\s()\-]{9,20}$/.test(phone.value.trim())){ setErr(phone,'Zadajte platné telefónne číslo.'); ok=false; } else setErr(phone,'');
-
-  const email = document.getElementById('f-email');
-  if(email.value.trim() && !/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email.value.trim())){ setErr(email,'Neplatný e-mail.'); ok=false; } else setErr(email,'');
-
-  const service = document.getElementById('f-service');
-  if(!service.value){ setErr(service,'Vyberte, prosím, o čo máte záujem.'); ok=false; } else setErr(service,'');
-
-  const place = document.getElementById('f-place');
-  if(!place.value){ setErr(place,'Vyberte, prosím, lokalitu.'); ok=false; } else setErr(place,'');
-
-  const gdpr = document.getElementById('f-gdpr');
-  const gErr = document.getElementById('gdprErr');
-  if(!gdpr.checked){ gErr.textContent='Bez súhlasu, žiaľ, nevieme žiadosť spracovať.'; gErr.classList.remove('hidden'); ok=false; }
-  else gErr.classList.add('hidden');
-
-  if(!ok){ toast('Skontrolujte, prosím, zvýraznené polia.'); return; }
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Odosielam...';
-
-  // Simulácia odoslania — tu napojte reálny backend / e-mail službu.
-  setTimeout(()=>{
-    const data = {
-      Meno: name.value.trim(),
-      Telefón: phone.value.trim(),
-      Email: email.value.trim() || '—',
-      Záujem: service.value,
-      Lokalita: place.value,
-      Dátum: document.getElementById('f-date').value || 'nezadaný',
-      Čas: document.getElementById('f-time').value
-    };
-    try{ localStorage.setItem('vitasana_last_booking', JSON.stringify(data)); }catch(_){}
-
-    document.getElementById('recap').innerHTML = Object.entries(data).map(([k,v])=>
-      `<div class="flex justify-between gap-4"><span class="text-sage-600">${k}</span><span class="text-sage-800 font-medium text-right">${v}</span></div>`
-    ).join('');
-
-    document.getElementById('formWrap').classList.add('hidden');
-    document.getElementById('successWrap').classList.remove('hidden');
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-regular fa-paper-plane"></i> Odoslať žiadosť';
-    form.reset();
-    toast('Žiadosť bola odoslaná.');
-  }, 900);
-});
 
 /* ---------- TOAST ---------- */
 let toastTimer;

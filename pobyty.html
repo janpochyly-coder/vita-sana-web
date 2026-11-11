@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script>
 tailwind.config = {
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -27,6 +28,14 @@ tailwind.config = {
   }
 }
 </script>
+<script>
+  try{
+    var t = localStorage.getItem('theme');
+    if(t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      document.documentElement.classList.add('dark');
+    }
+  }catch(e){}
+</script>
 <style>
   body{background:#fdfcf7}
   .grain{background-image:radial-gradient(rgba(147,169,106,.10) 1px,transparent 1px);background-size:18px 18px}
@@ -34,6 +43,29 @@ tailwind.config = {
   .link-underline:hover{background-size:100% 1px}
   input:focus,select:focus,textarea:focus{outline:none}
   html{scroll-padding-top:96px}
+
+  /* ===== Tmavý režim ===== */
+  html.dark{color-scheme:dark}
+  html.dark body{background-color:#10140d;color:#e7e3d4}
+  html.dark section.bg-sand-50{background-color:#10140d}
+  html.dark article.bg-sand-50{background-color:#1b2219}
+  html.dark .bg-white{background-color:#1b2219}
+  html.dark .bg-sage-50{background-color:#1b2219}
+  html.dark .bg-sage-100{background-color:#242d1f}
+  html.dark .bg-terra-100{background-color:#2c201b}
+  html.dark .bg-sage-700{background-color:#1d2713}
+  html.dark .bg-sage-800{background-color:#161d0f}
+  html.dark header[class*="bg-sand-50/90"]{background-color:rgba(16,20,13,.9)!important}
+  html.dark #mobileMenu{background-color:rgba(16,20,13,.98)}
+  html.dark .text-sage-800{color:#eef3e3}
+  html.dark .text-sage-700{color:#d3dbc4}
+  html.dark .text-sage-600{color:#a6b58d}
+  html.dark .text-sage-400{color:#8fa06a}
+  html.dark .border-sage-100{border-color:rgba(238,243,227,.08)}
+  html.dark .border-sage-200{border-color:rgba(238,243,227,.14)}
+  html.dark .border-sage-300{border-color:rgba(238,243,227,.20)}
+  html.dark input,html.dark select,html.dark textarea{background-color:#141a11;color:#eef3e3}
+  html.dark input::placeholder,html.dark textarea::placeholder{color:#7d8a66}
 </style>
 </head>
 <body class="font-sans text-sage-800 antialiased">
@@ -54,6 +86,9 @@ tailwind.config = {
       </nav>
 
       <div class="flex items-center gap-3">
+        <button onclick="toggleTheme()" aria-label="Prepnúť tmavý režim" class="grid place-items-center w-11 h-11 rounded-full border border-sage-200 text-sage-700 hover:bg-sage-50 transition">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
         <a href="#dopyt" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-terra-600 hover:bg-terra-700 text-sand-50 px-6 py-3 text-[12px] uppercase tracking-[.18em] shadow-lg shadow-terra-600/20 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
           <i class="fa-regular fa-paper-plane"></i> Mám záujem
         </a>
@@ -82,8 +117,10 @@ tailwind.config = {
 <section class="relative overflow-hidden grain pt-36 pb-20 sm:pt-44 sm:pb-28">
   <div class="absolute inset-0 -z-10">
     <img src="img/hero.jpg" alt="" class="w-full h-full object-cover">
-    <div class="absolute inset-0 bg-gradient-to-r from-sand-50 via-sand-50/92 to-sand-50/50"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-sand-50 via-transparent to-sand-50/70"></div>
+    <div class="absolute inset-0 dark:hidden bg-gradient-to-r from-sand-50 via-sand-50/92 to-sand-50/50"></div>
+    <div class="absolute inset-0 dark:hidden bg-gradient-to-t from-sand-50 via-transparent to-sand-50/70"></div>
+    <div class="absolute inset-0 hidden dark:block bg-gradient-to-r from-[#10140d] via-[#10140d]/90 to-[#10140d]/45"></div>
+    <div class="absolute inset-0 hidden dark:block bg-gradient-to-t from-[#10140d] via-transparent to-[#10140d]/60"></div>
   </div>
   <div class="mx-auto max-w-7xl px-5 sm:px-8">
     <a href="index.html" class="inline-flex items-center gap-2 text-[12px] uppercase tracking-[.18em] text-sage-700 hover:text-terra-600 transition-colors">
@@ -349,6 +386,17 @@ tailwind.config = {
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  function updateThemeIcon(){
+    const on = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('#themeIcon, #themeIconM').forEach(i => i.className = 'fa-solid ' + (on ? 'fa-sun' : 'fa-moon'));
+  }
+  function toggleTheme(){
+    const on = document.documentElement.classList.toggle('dark');
+    try{ localStorage.setItem('theme', on ? 'dark' : 'light'); }catch(e){}
+    updateThemeIcon();
+  }
+  updateThemeIcon();
 
   function toggleMenu(){
     const m = document.getElementById('mobileMenu');
